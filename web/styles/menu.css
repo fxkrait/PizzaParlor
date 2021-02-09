@@ -5,8 +5,13 @@
 
   table, th, td {
     border: 1px solid black;
+    text-align:center;
   }
 
-  h1 {
+  h1 ,h2 {
     text-align:center;
 }
+
+th {
+    text-align: center;
+  }

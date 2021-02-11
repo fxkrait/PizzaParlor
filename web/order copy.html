@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<!-- defines that this document is an HTML5 document -->
+<!-- Comment. It may span multiple lines -->
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+    crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://bootswatch.com/4/superhero/bootstrap.min.css" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" />
+
+<link rel="stylesheet" href="styles/menu.css" />
+<link rel="stylesheet" href="styles/order.css" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="./scripts/order.js"></script>
+
+<style>
+    /* Make the image fully responsive */
+    .carousel-inner img {
+        width: 100%;
+        height: 100%;
+    }
+</style>
+<html>
+<!-- the root element of an HTML page -->
+
+<head>
+    <!-- contains meta information about the HTML page -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+            <img src="./images/pizza.png" height="50" alt="image" />
+        </a>
+        <a class="navbar-brand" href="#">The AoT:</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="menu.html">Menu</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="order.html">Order</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="cart.html">Shopping Cart</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="container">
+            <div class="navbar-collapse collapse" id="navbarNav3" style="">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="badge badge-pill badge-primary">5</span></a>
+                        <div class="dropdown-menu dropdown-menu-right p-3" aria-labelledby="navbarDropdown"
+                            style="min-width: 300px">
+                            <h6>5 Items <span class="emphasis">$147.00</span></h6>
+                            <div class="dropdown-divider"></div>
+                            <ul class="shopping-cart-items pt-2 pl-0">
+                                <li class="row mt-3">
+                                    <div class="col-4">
+                                        <img src=" https://via.placeholder.com/50/5fa9f8/ffffff" alt=""
+                                            class="img-fluid d-none d-md-block rounded mb-2 shadow" />
+                                    </div>
+                                    <div class="col-8">
+                                        <h6>
+                                            <a href="#">Product Name</a>
+                                        </h6>
+                                        <span class="text-muted">2x</span>
+                                        <span class="emphasis">$39.00</span>
+                                    </div>
+                                </li>
+                                <li class="row mt-3">
+                                    <div class="col-4">
+                                        <img src=" https://via.placeholder.com/50/5fa9f8/ffffff" alt=""
+                                            class="img-fluid d-none d-md-block rounded mb-2 shadow" />
+                                    </div>
+                                    <div class="col-8">
+                                        <h6>
+                                            <a href="#">Product Name</a>
+                                        </h6>
+                                        <span class="text-muted">1x</span>
+                                        <span class="emphasis">$19.00</span>
+                                    </div>
+                                </li>
+                                <li class="row mt-3">
+                                    <div class="col-4">
+                                        <img src=" https://via.placeholder.com/50/5fa9f8/ffffff" alt=""
+                                            class="img-fluid d-none d-md-block rounded mb-2 shadow" />
+                                    </div>
+                                    <div class="col-8">
+                                        <h6>
+                                            <a href="#">Product Name</a>
+                                        </h6>
+                                        <span class="text-muted">1x</span>
+                                        <span class="emphasis">$49.00</span>
+                                    </div>
+                                </li>
+                                <li class="row mt-3">
+                                    <div class="col-4">
+                                        <img src=" https://via.placeholder.com/50/5fa9f8/ffffff" alt=""
+                                            class="img-fluid d-none d-md-block rounded mb-2 shadow" />
+                                    </div>
+                                    <div class="col-8">
+                                        <h6>
+                                            <a href="#">Product Name</a>
+                                        </h6>
+                                        <span class="text-muted">1x</span>
+                                        <span class="emphasis">$29.00</span>
+                                    </div>
+                                </li>
+                            </ul>
+                            <a href="#" class="btn btn-md btn-block btn-primary mt-3" style="margin: 0">View Cart</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-right">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Login
+                    </a>
+                    <div class="dropdown-menu p-3">
+                        <form class="form-horizontal" method="post" accept-charset="UTF-8">
+                            <input class="form-control login" type="text" name="username2" placeholder="Email" />
+                            <input class="form-control login" type="text" name="password2" placeholder="Password" />
+                            <input class="btn btn-primary" type="button" name="submit" value="Login" />
+                        </form>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Register
+                    </a>
+                    <div class="dropdown-menu p-3">
+                        <form class="form-horizontal" method="post" accept-charset="UTF-8">
+                            <input class="form-control login" type="text" name="username2" placeholder="Email" />
+                            <input class="form-control login" type="text" name="password2" placeholder="Password" />
+                            <input class="btn btn-primary" type="button" name="submit" value="Login" />
+                        </form>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <title>The Aroma of Tacoma</title>
+
+    <!-- <link rel="stylesheet" type="text/css" href="styles/site.css" />
+        <style>
+            h1 {
+              color: orange;
+            }
+        </style> -->
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+           <div class="col-md-8">
+            <input class="btn btn-primary" type="button"  onclick="register()" name="submit" value="Add Order" />
+            <input class="btn btn-primary" type="button"  onclick="register()" name="submit" value="Remove Order" />
+            <input class="btn btn-primary" type="button"  onclick="register()" name="submit" value="Update Order" />
+            <input class="btn btn-primary" type="button"  onclick="register()" name="submit" value="Reset Order" />
+            <br>
+            <h3>Order Name:</h3>
+            <input class="form-control register" type="text" name="orderName" id="orderName" placeholder="Order No 1" />
+            <h3>Quantity:</h3> 
+            <input class="form-control register" type="text" name="quantity" id="quantity" placeholder="1" />
+
+
+            <h3>Size:</h3>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="sizeRadio" id="exampleRadios1" value="option1" checked>
+                <label class="form-check-label" for="exampleRadios1">
+                    Small 10"
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="sizeRadio" id="exampleRadios2" value="option2">
+                <label class="form-check-label" for="exampleRadios2">
+                    Medium 12" (+2)
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="sizeRadio" id="exampleRadios3" value="option3">
+                <label class="form-check-label" for="exampleRadios3">
+                    Large 14" (+4)
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="sizeRadio" id="exampleRadios3" value="option3">
+                <label class="form-check-label" for="exampleRadios3">
+                    X-Large" (+6)
+                </label>
+              </div>
+              <br>
+
+            <h3>Crust:</h3>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                <label class="form-check-label" for="exampleRadios1">
+                    Thin
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                <label class="form-check-label" for="exampleRadios2">
+                    Thick
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
+                <label class="form-check-label" for="exampleRadios3">
+                    Deep Dish (+2.95)
+                </label>
+            </div>
+            <br>
+
+
+            <h3>Sauce:</h3>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="sauceRadios" id="exampleRadios1" value="option1" checked>
+                <label class="form-check-label" for="exampleRadios1">
+                    None
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="sauceRadios" id="exampleRadios2" value="option2">
+                <label class="form-check-label" for="exampleRadios2">
+                    Robust Inspired Tomato Sauce
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="sauceRadios" id="exampleRadios3" value="option3">
+                <label class="form-check-label" for="exampleRadios3">
+                    Hearty Marinara Sauce
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="sauceRadios" id="exampleRadios3" value="option3">
+                <label class="form-check-label" for="exampleRadios3">
+                    Honey BBQ Sauce
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="sauceRadios" id="exampleRadios3" value="option3">
+                <label class="form-check-label" for="exampleRadios3">
+                    Garlic Parmesan Sauce
+
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="sauceRadios" id="exampleRadios3" value="option3">
+                <label class="form-check-label" for="exampleRadios3">
+                    Alfredo Sauce
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="sauceRadios" id="exampleRadios3" value="option3">
+                <label class="form-check-label" for="exampleRadios3">
+                    Ranch
+                </label>
+            </div>
+            <br>
+
+            <h3>Cheese (Cheddar):</h3>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="cheeseRadios" id="exampleRadios1" value="option1" checked>
+                <label class="form-check-label" for="exampleRadios1">
+                    None
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="cheeseRadios" id="exampleRadios2" value="option2">
+                <label class="form-check-label" for="exampleRadios2">
+                    Light
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="cheeseRadios" id="exampleRadios3" value="option3">
+                <label class="form-check-label" for="exampleRadios3">
+                    Normal
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="cheeseRadios" id="exampleRadios3" value="option3">
+                <label class="form-check-label" for="exampleRadios3">
+                    Extra
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="cheeseRadios" id="exampleRadios3" value="option3">
+                <label class="form-check-label" for="exampleRadios3">
+                    Double
+                </label>
+            </div>
+            <br>
+          
+
+
+            <h3>Toppings (Meat):</h3>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="hamCheck">
+                <label class="form-check-label" for="hamCheck">
+                    Ham
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">
+                    Beef
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">
+                    Salami
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">
+                    Pepperoni
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">
+                    Default checkbox
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">
+                    Italian Sausage
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">
+                    Premium Chicken
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">
+                    Bacon
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">
+                    Philly Steak
+                </label>
+            </div>
+            <br>
+
+            <h3>Toppings (Non-Meats):</h3>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">
+                    Hot Buffalo Sauce
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">
+                    Garlic
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">
+                    Jalapeno Peppers
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">
+                    Onions
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">
+                    Banana Peppers
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">
+                    Diced Tomatoes
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">
+                    Black Olives
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">
+                    Mushrooms
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">
+                    Pineapple
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">
+                    Shredded Provolone Cheese
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">
+                    Cheddar Cheese
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">
+                    Green Peppers
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">
+                    Spinach
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">
+                    Roasted Red Peppers
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">
+                    Feta Cheese
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">
+                    Shredded Parmesan Asiago
+                </label>
+            </div>
+            <br>
+
+           </div>
+           <div class="col-md-4">
+               <div class="wrap-collabsible">
+                <input id="collapsible" class="toggle" type="checkbox">
+                <label for="collapsible" class="lbl-toggle">Order No. 1</label>
+                <div class="collapsible-content">
+                  <div class="content-inner">
+                    <p>
+                      QUnit is by calling one of the object that are embedded in JavaScript, and faster JavaScript program could also used with
+                      its elegant, well documented, and functional programming using JS, HTML pages Modernizr is a popular browsers without
+                      plug-ins. Test-Driven Development.
+                    </p>
+                    <p> Price</p>
+
+                  </div>
+                </div>
+              </div>
+
+
+
+           </div>
+        </div>
+      </div>
+
+   
+</body>
+
+</html>

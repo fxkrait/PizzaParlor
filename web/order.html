@@ -11,9 +11,10 @@
 <link rel="stylesheet" href="https://bootswatch.com/4/superhero/bootstrap.min.css" />
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" />
 
-<link rel="stylesheet" href="styles/menu.css" />
+<link rel="stylesheet" href="styles/order.css" />
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="./scripts/order.js"></script>
 
 <style>
     /* Make the image fully responsive */
@@ -55,7 +56,7 @@
         </div>
 
         <div class="container">
-            <div class="navbar-collapse collapse" id="navbarNav3" style="">
+            <div class="navbar-collapse collapseNav" id="navbarNav3" style="">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -127,7 +128,7 @@
             </div>
         </div>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapseNav navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-right">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink"
@@ -168,8 +169,307 @@
             }
         </style> -->
 </head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <input class="btn btn-primary" type="button" onclick="register()" name="submit" value="Add Order" />
+                <input class="btn btn-primary" type="button" onclick="register()" name="submit" value="Remove Order" />
+                <input class="btn btn-primary" type="button" onclick="register()" name="submit" value="Update Order" />
+                <input class="btn btn-primary" type="button" onclick="register()" name="submit" value="Reset Order" />
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Load a favorite Order
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="#">Action</a>
+                      <a class="dropdown-item" href="#">Another action</a>
+                      <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                  </div>
+                  <div class="form-check favoriteOrderDiv">
+                    <input class="form-check-input" type="checkbox" value="" id="favoriteOrder">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16" data-darkreader-inline-fill="" style="--darkreader-inline-fill:currentColor;">
+                        <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.523-3.356c.329-.314.158-.888-.283-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767l-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288l1.847-3.658 1.846 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.564.564 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"></path>
+                      </svg>
+                    <label class="form-check-label" for="defaultCheck1">
+                        Click to favorite Order
+                    </label>
+                </div>
+
+                  <button type="button" class="btn btn-secondary" id="favoriteOrder" type="checkbox">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16" data-darkreader-inline-fill="" style="--darkreader-inline-fill:currentColor;">
+      <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.523-3.356c.329-.314.158-.888-.283-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767l-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288l1.847-3.658 1.846 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.564.564 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"></path>
+    </svg>
+                    <span class="visually-hidden">Click to favorite order</span>
+                  </button>
+
+                <br>
+                <h3>Order Name:</h3>
+                <input class="form-control register" type="text" name="orderName" id="orderName"
+                    placeholder="Order No 1" />
+                <h3>Quantity:</h3>
+                <input class="form-control register" type="text" name="quantity" id="quantity" placeholder="1" />
 
 
+                <h3>Size:</h3>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="sizeRadio" id="exampleRadios1" value="option1"
+                        checked>
+                    <label class="form-check-label" for="exampleRadios1">
+                        Small 10"
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="sizeRadio" id="exampleRadios2" value="option2">
+                    <label class="form-check-label" for="exampleRadios2">
+                        Medium 12" (+2)
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="sizeRadio" id="exampleRadios3" value="option3">
+                    <label class="form-check-label" for="exampleRadios3">
+                        Large 14" (+4)
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="sizeRadio" id="exampleRadios3" value="option3">
+                    <label class="form-check-label" for="exampleRadios3">
+                        X-Large" (+6)
+                    </label>
+                </div>
+                <br>
+
+                <h3>Crust:</h3>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
+                        value="option1" checked>
+                    <label class="form-check-label" for="exampleRadios1">
+                        Thin
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
+                        value="option2">
+                    <label class="form-check-label" for="exampleRadios2">
+                        Thick
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3"
+                        value="option3">
+                    <label class="form-check-label" for="exampleRadios3">
+                        Deep Dish (+2.95)
+                    </label>
+                </div>
+                <br>
+
+
+                <h3>Sauce:</h3>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="sauceRadios" id="exampleRadios1" value="option1"
+                        checked>
+                    <label class="form-check-label" for="exampleRadios1">
+                        None
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="sauceRadios" id="exampleRadios2" value="option2">
+                    <label class="form-check-label" for="exampleRadios2">
+                        Robust Inspired Tomato Sauce
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="sauceRadios" id="exampleRadios3" value="option3">
+                    <label class="form-check-label" for="exampleRadios3">
+                        Hearty Marinara Sauce
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="sauceRadios" id="exampleRadios3" value="option3">
+                    <label class="form-check-label" for="exampleRadios3">
+                        Honey BBQ Sauce
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="sauceRadios" id="exampleRadios3" value="option3">
+                    <label class="form-check-label" for="exampleRadios3">
+                        Garlic Parmesan Sauce
+
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="sauceRadios" id="exampleRadios3" value="option3">
+                    <label class="form-check-label" for="exampleRadios3">
+                        Alfredo Sauce
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="sauceRadios" id="exampleRadios3" value="option3">
+                    <label class="form-check-label" for="exampleRadios3">
+                        Ranch
+                    </label>
+                </div>
+                <br>
+
+                <h3>Cheese (Cheddar):</h3>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="cheeseRadios" id="exampleRadios1" value="option1"
+                        checked>
+                    <label class="form-check-label" for="exampleRadios1">
+                        None
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="cheeseRadios" id="exampleRadios2"
+                        value="option2">
+                    <label class="form-check-label" for="exampleRadios2">
+                        Light
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="cheeseRadios" id="exampleRadios3"
+                        value="option3">
+                    <label class="form-check-label" for="exampleRadios3">
+                        Normal
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="cheeseRadios" id="exampleRadios3"
+                        value="option3">
+                    <label class="form-check-label" for="exampleRadios3">
+                        Extra
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="cheeseRadios" id="exampleRadios3"
+                        value="option3">
+                    <label class="form-check-label" for="exampleRadios3">
+                        Double
+                    </label>
+                </div>
+                <br>
+
+                <h3>Toppings (Meat):</h3>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="hamCheck">
+                    <label class="form-check-label" for="hamCheck">
+                        Ham
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                        Beef
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                        Salami
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                        Pepperoni
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                        Italian Sausage
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                        Premium Chicken
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                        Bacon
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                        Philly Steak
+                    </label>
+                </div>
+                <br>
+
+
+
+            </div>
+            <div class="col-md-4">
+
+
+
+                <div id="accordion" class="accordion">
+                    <div class="card-header collapsed" data-toggle="collapse" href="#collapseOne">
+                        <a class="card-title">
+                            Pizza 1
+                        </a>
+                    </div>
+                    <div id="collapseOne" class="card-body collapse show" data-parent="#accordion">
+                        <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt
+                            aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat
+                            craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                        </p>
+                    </div>
+                    <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                        <a class="card-title">
+                          Pizza 2
+                        </a>
+                    </div>
+                    <div id="collapseTwo" class="card-body collapse" data-parent="#accordion" >
+                        <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt
+                            aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat
+                            craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                        </p>
+                    </div>
+                    <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                        <a class="card-title">
+                          Pizza 3
+                        </a>
+                    </div>
+                    <div id="collapseThree" class="collapse" data-parent="#accordion" >
+                        <div class="card-body">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt
+                            aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. samus labore sustainable VHS.
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+
+                <h3>Total Order Price:</h3>
+                <p>$33.45</p>
+                <input class="btn btn-primary" type="button" onclick="register()" name="submit" value="Checkout" />
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <script>
+        /* always keep at least 1 open by preventing the current to close itself */
+        $('[data-toggle="collapse"]').on('click',function(e){
+            if ( $(this).parents('.accordion').find('.collapse.show') ){
+                var idx = $(this).index('[data-toggle="collapse"]');
+                if (idx == $('.collapse.show').index('.collapse')) {
+                    // prevent collapse
+                    e.stopPropagation();
+                }
+            }
+        });
+        
+        </script>    
 </body>
 
 </html>

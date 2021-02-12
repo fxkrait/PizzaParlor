@@ -49,3 +49,58 @@ let updateCrustRadio = () => {
     console.log(output);
     $('#pizzaCrust').text(output);
 }
+// https://stackoverflow.com/questions/15839169/how-to-get-value-of-selected-radio-button
+let updateSauceRadio = () => {
+    let output = $("input[type='radio'][name='crustRadios']:checked").val();
+    console.log("sauce output is:");
+    console.log(output);
+    $('#pizzaSauce').text(output);
+}
+
+// https://stackoverflow.com/questions/15839169/how-to-get-value-of-selected-radio-button
+let updateRadio = (feature) => {
+    let radioName = feature + "Radios";
+    console.log(radioName);
+    let output = $(`input[type='radio'][name=${radioName}]:checked`).val();
+    //console.log("output is:");
+    console.log(output);
+    let outputName = "pizza" + feature; 
+    console.log(outputName);
+    $(`#${outputName}`).text(output);
+}
+
+
+let updateCheckBoxes = (feature) => {
+    let checkboxName = feature + "Checkboxes";
+    console.log("checkboxname: " + checkboxName);
+    var checkedBoxes = document.querySelectorAll(`input[name=${checkboxName}]:checked`);
+    console.log(checkedBoxes)
+    //console.log(checkedBoxes[0].value);
+
+    let outputName = "pizza" + feature + "List";
+
+
+    let toppings = [];
+    checkedBoxes.forEach(topping => {
+        toppings.push(topping.value);
+    }) 
+
+
+    console.log(toppings);
+
+
+
+    var cList = $(`ul.${outputName}`)
+   /* const $ul = $('<ul>', { class: "pizzaToppingsMeatList" }).append(
+        toppings.map(topping => 
+          $("<li>").append($("<a>").text(topping))
+        )
+      );*/
+
+      let $cList = $(`#${outputName}`) //Your list element
+      $cList.empty();
+
+$.each(toppings, function(i, topping) {
+    $cList.append("<li>" + topping + "</span></li>")
+});
+}

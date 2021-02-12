@@ -268,6 +268,45 @@ let toggleFavoriteButton = () => {
     }
 }
 
+let resetPizza = () => {
+
+
+    // Size
+    $('#sizeSmallRadio').attr('checked',true);
+
+    // toppingsMeat
+    $('#hamCheck').prop('checked', false);
+    $('#beefCheck').prop('checked', false);
+    $('#salamiCheck').prop('checked', false);
+    $('#pepperoniCheck').prop('checked', false);
+    $('#italianSausageCheck').prop('checked', false);
+    $('#premiumChickenCheck').prop('checked', false);
+    $('#baconCheck').prop('checked', false);
+    $('#phillySteakCheck').prop('checked', false);
+    
+    // ToppingsNonMeat
+    $('#hotBuffaloSauceCheck').prop('checked', false);
+    $('#garlicCheck').prop('checked', false);
+    $('#jalapenoPeppersCheck').prop('checked', false);
+    $('#onionsCheck').prop('checked', false);
+    $('#bananaPeppersCheck').prop('checked', false);
+    $('#dicedTomatoesCheck').prop('checked', false);
+    $('#blackOlivesCheck').prop('checked', false);
+    $('#mushroomsCheck').prop('checked', false);
+    $('#pineappleCheck').prop('checked', false);
+    $('#shreddedProvoloneCheeseCheck').prop('checked', false);
+    $('#cheddarCheeseCheck').prop('checked', false);
+    $('#greenPeppersCheck').prop('checked', false);
+    $('#spinachCheck').prop('checked', false);
+    $('#roastedRedPeppersCheck').prop('checked', false);
+    $('#fetaCheeseCheck').prop('checked', false);
+    $('#shreddedParmesanAsiagoCheck').prop('checked', false);
+
+    updatePizza();
+
+
+}
+
 
 let favoriteAPizza = (pizza) => {
     let price = 11.99;
@@ -287,3 +326,7 @@ let favoriteAPizza = (pizza) => {
     //console.log(price);
     return price;
 }
+
+
+///////////////////////////////////////////////////////////////
+/// Save Orders:

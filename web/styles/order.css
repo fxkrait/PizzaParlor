@@ -69,9 +69,13 @@
   }
   
   .card-body{
-    background: rgba(182, 160, 105, 0.63);
+    background-image: initial;
+    background-color: rgba(108, 100, 79, 0.63);
+    /*background: rgba(182, 160, 105, 0.63);*/
     border-bottom: 1px solid rgba(250, 224, 66, .45);
+    border-bottom-color: rgba(161, 146, 54, 0.45);
     border-bottom-left-radius: 7px;
     border-bottom-right-radius: 7px;
     padding: .5rem 1rem;
   }
+

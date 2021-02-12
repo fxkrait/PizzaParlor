@@ -67,6 +67,7 @@ let updateRadio = (feature) => {
     let outputName = "pizza" + feature; 
     console.log(outputName);
     $(`#${outputName}`).text(output);
+    updatePizza();
 }
 
 
@@ -103,4 +104,156 @@ let updateCheckBoxes = (feature) => {
 $.each(toppings, function(i, topping) {
     $cList.append("<li>" + topping + "</span></li>")
 });
+
+}
+
+
+let getCheckBoxes = (feature) => {
+    let checkboxName = feature + "Checkboxes";
+    console.log("checkboxname: " + checkboxName);
+    var checkedBoxes = document.querySelectorAll(`input[name=${checkboxName}]:checked`);
+    console.log(checkedBoxes)
+    //console.log(checkedBoxes[0].value);
+
+    let outputName = "pizza" + feature + "List";
+
+
+    let toppings = [];
+    checkedBoxes.forEach(topping => {
+        toppings.push(topping.value);
+    }) 
+
+
+    console.log(toppings);
+    return toppings;
+
+}
+
+
+// https://stackoverflow.com/questions/15839169/how-to-get-value-of-selected-radio-button
+let checkoutPizza = () => {
+    if (typeof Storage !== "undefined") {
+        updatePizza();
+        ///window.location.href = "checkout.html";
+        window.location.href="cart.html";
+
+    } else {
+        window.alert("Sorry, your browser does not support Web Storage...");
+    }
+}
+
+let redirectTest = () => {
+    window.location.href="cart.html";
+}
+
+// https://stackoverflow.com/questions/15839169/how-to-get-value-of-selected-radio-button
+let updatePizza = () => {
+    if (typeof Storage !== "undefined") {
+        //alertify.success("test");
+
+        let currentOrder = JSON.parse(sessionStorage.getItem("currentOrder"));
+
+        if (currentOrder === null) {
+            currentOrder = [];
+        }
+
+        let size = $('#pizzaSize').text();
+        let crust = $('#pizzaCrust').text();
+        let sauce = $('#pizzaSauce').text();
+        let cheese = $('#pizzaCheese').text();
+
+        let toppingsMeatList = getCheckBoxes('ToppingsMeat');
+        let toppingsNonMeatsList = getCheckBoxes('ToppingsNonMeats');
+        let pizza = {size, crust, sauce, cheese, toppingsMeatList, toppingsNonMeatsList};
+        console.log(pizza);
+        
+        calculatePizzaPrice(pizza)
+    
+        /*var testUser = {pass:'pass', fName: 'greg', lName:'hab'};
+        let testEmail = 'test@gmail.com';
+        sessionStorage[testEmail] = JSON.stringify(testUser);
+        //console.log(sessionStorage['user']);
+        let testUserGot = JSON.parse(sessionStorage.getItem(testEmail))
+        console.log(testUserGot);
+        console.log(testUserGot.pass);
+        */
+       /*
+        let map = {};
+        map["test@gmail.com"]= {pass: "passtest", fName: "greg", lName: "hab"};
+        console.log(map);
+        sessionStorage.setItem('registeredUserMap', JSON.stringify(map))
+        let map2 = JSON.parse(sessionStorage.getItem('deletedItems'))
+        console.log(map2);
+    */
+        /*alertify.success(`Login successful for ${email}`);
+        alertify.error(`Login unsuccessful for ${email}`);*/
+    } else {
+        window.alert("Sorry, your browser does not support Web Storage...");
+    }
+}
+
+let calculatePizzaPrice = (pizza) => {
+    let price = 11.99;
+    if (pizza.size === 'Medium 12" (+2)') {
+        price += 2
+    } else if (pizza.size === 'Large 14" (+4)') {
+        price += 4;
+    } else if (pizza.size === 'X-Large" (+6)') {
+        price += 6;
+    } 
+
+    if (pizza.crust === "Deep Dish (+2.95)") {
+        price += 2.95
+    }
+    price = price.toFixed(2); // round to 2 decimals.
+    $('#pizzaPrice').text("$" + price.toString());
+    console.log(price);
+    return price;
+}
+
+let colorFavoriteButton = () => {
+    let checked = $('#favoritePizzaButton').attr("data-state");
+    console.log(checked);
+
+}
+
+let toggleFavoriteButton = () => {
+    let button = $('#pizzaFavoriteButton');
+    let checked = button.is(':checked')
+    //let checked = button.attr("checked");
+    //console.log(checked);
+    if (checked) {
+        console.log("true");
+        //button.prop("data-state", false);
+        //button.html("Click to un-favorite order");
+        $('#favoriteButtonText').text("Click to un-favorite order");
+        button.css('background-color', 'red');
+    } else {
+        console.log("false");
+        //button.prop("data-state", true);
+        //button.html("Click to favorite order");
+        $('#favoriteButtonText').text("Click to favorite order");
+        $('#favoriteButtonText').css('color', 'grey');
+
+    }
+}
+
+
+let favoriteAPizza = (pizza) => {
+    let price = 11.99;
+    if (pizza.size === 'Medium 12" (+2)') {
+        price += 2
+    } else if (pizza.size === 'Large 14" (+4)') {
+        price += 4;
+    } else if (pizza.size === 'X-Large" (+6)') {
+        price += 6;
+    } 
+
+    if (pizza.crust === "Deep Dish (+2.95)") {
+        price += 2.95
+    }
+    price = price.toFixed(2); // round to 2 decimals.
+    $('#pizzaPrice').text("$" + price.toString());
+    console.log(price);
+    return price;
 }

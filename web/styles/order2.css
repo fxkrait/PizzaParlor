@@ -1,0 +1,171 @@
+.card {
+    border-color: transparent;
+    background-color: transparent;
+}
+
+
+
+.wrap-.collapse {
+    margin-bottom: 1.2rem 0;
+  }
+  
+  
+  .card-header {
+    display: block;
+  
+    font-weight: bold;
+    font-family: monospace;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    text-align: center;
+  
+    padding: 1rem;
+  
+    color: #A77B0E;
+    background-color: rgb(86, 93, 100);
+  
+    cursor: pointer;
+  
+    border-radius: 7px;
+    transition: all 0.25s ease-out;
+  }
+  
+  .card-header:hover {
+    color: #7C5A0B;
+  }
+  
+  .card-header::before {
+    content: ' ';
+    display: inline-block;
+  
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid currentColor;
+    vertical-align: middle;
+    margin-right: .7rem;
+    transform: translateY(-2px);
+  
+    transition: transform .2s ease-out;
+  }
+  
+  /*
+  .toggle:checked + .lbl-toggle::before {
+    transform: rotate(90deg) translateX(-3px);
+  }*/
+  
+  /*.collapsible-content {
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height .25s ease-in-out;
+  }*/
+  /*
+  .toggle:checked + .lbl-toggle + .collapsible-content {
+    max-height: 100vh;
+  }*/
+  
+  .card-header {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  
+  .card-body{
+    background-image: initial;
+    background-color: rgba(108, 100, 79, 0.63);
+    /*background: rgba(182, 160, 105, 0.63);*/
+    border-bottom: 1px solid rgba(250, 224, 66, .45);
+    border-bottom-color: rgba(161, 146, 54, 0.45);
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    padding: .5rem 1rem;
+  }
+
+  .login::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: red;
+    opacity: 1; /* Firefox */
+  }
+
+  .login {
+      /*background-color:white !important;*/
+      background-color: rgb(65, 67, 67);
+  }
+
+
+  body {
+    color: rgb(193, 193, 191);
+    background-color: rgb(77, 88, 99);
+}
+.bg-light {
+    background-color: rgb(77, 81, 86) !important;
+}
+/*
+.card-body {
+    background-image: initial;
+    background-color: rgba(108, 100, 79, 0.63);
+    border-bottom-color: rgba(161, 146, 54, 0.45);
+}*/
+
+.navbar-light .navbar-nav .active > .nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show > .nav-link {
+  color: rgba(190, 189, 187, 0.9);
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: rgba(190, 189, 187, 0.5);
+}
+
+.navbar-light .navbar-brand {
+  color: rgba(190, 189, 187, 0.9);
+}
+
+.btn-primary {
+  background-color: rgb(152, 98, 63);
+}
+.btn-primary {
+  color: rgb(204, 204, 204);
+  background-color: rgb(152, 98, 63);
+  border-color: rgb(155, 100, 63);
+}
+
+.btn-secondary {
+  background-color: rgb(86, 93, 100);
+}
+
+.btn-secondary {
+  color: rgb(204, 204, 204);
+  background-color: rgb(86, 93, 100);
+  border-color: rgb(95, 104, 112);
+}
+
+.form-control {
+  color: rgb(172, 170, 165);
+  background-color: rgb(65, 67, 67);
+  border-color: transparent;
+}
+
+
+.card-header {
+  color: rgb(197, 175, 119);
+  background-color: rgb(89, 91, 93);
+}
+
+.card-body {
+  background-image: initial;
+  background-color: rgba(99, 96, 86, 0.63);
+  border-bottom-color: rgba(135, 127, 79, 0.45);
+}
+
+.card-body {
+  background-image: initial;
+  background-color: rgba(108, 100, 79, 0.63);
+  /* background: rgba(182, 160, 105, 0.63); */
+  border-bottom: 1px solid rgba(250, 224, 66, .45);
+  border-bottom-color: rgba(161, 146, 54, 0.45);
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+  padding: .5rem 1rem;
+}
+
+a {
+  color: rgb(192, 138, 102);
+  text-decoration-color: initial;
+  background-color: transparent;
+}

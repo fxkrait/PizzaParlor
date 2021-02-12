@@ -26,3 +26,26 @@ $('[data-toggle="collapse"]').on('click',function(e){
         }
     }
 });
+
+
+
+// TESTING
+let modifyA = () => {
+    $('.card-title[data-index-number="0"]').text("test") ;
+} 
+
+// https://stackoverflow.com/questions/15839169/how-to-get-value-of-selected-radio-button
+let updateSizeRadio = () => {
+    let output = $("input[type='radio'][name='sizeRadios']:checked").val();
+    console.log("size output is:");
+    console.log(output);
+    $('#pizzaSize').text(output);
+}
+
+// https://stackoverflow.com/questions/15839169/how-to-get-value-of-selected-radio-button
+let updateCrustRadio = () => {
+    let output = $("input[type='radio'][name='crustRadios']:checked").val();
+    console.log("crust output is:");
+    console.log(output);
+    $('#pizzaCrust').text(output);
+}

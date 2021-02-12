@@ -60,12 +60,12 @@ let updateSauceRadio = () => {
 // https://stackoverflow.com/questions/15839169/how-to-get-value-of-selected-radio-button
 let updateRadio = (feature) => {
     let radioName = feature + "Radios";
-    console.log(radioName);
+    //console.log(radioName);
     let output = $(`input[type='radio'][name=${radioName}]:checked`).val();
     //console.log("output is:");
-    console.log(output);
+    //console.log(output);
     let outputName = "pizza" + feature; 
-    console.log(outputName);
+    //console.log(outputName);
     $(`#${outputName}`).text(output);
     updatePizza();
 }
@@ -87,7 +87,7 @@ let updateCheckBoxes = (feature) => {
     }) 
 
 
-    console.log(toppings);
+    //console.log(toppings);
 
 
 
@@ -110,9 +110,9 @@ $.each(toppings, function(i, topping) {
 
 let getCheckBoxes = (feature) => {
     let checkboxName = feature + "Checkboxes";
-    console.log("checkboxname: " + checkboxName);
+    //console.log("checkboxname: " + checkboxName);
     var checkedBoxes = document.querySelectorAll(`input[name=${checkboxName}]:checked`);
-    console.log(checkedBoxes)
+    //console.log(checkedBoxes)
     //console.log(checkedBoxes[0].value);
 
     let outputName = "pizza" + feature + "List";
@@ -124,7 +124,7 @@ let getCheckBoxes = (feature) => {
     }) 
 
 
-    console.log(toppings);
+    //console.log(toppings);
     return toppings;
 
 }
@@ -146,6 +146,22 @@ let redirectTest = () => {
     window.location.href="cart.html";
 }
 
+$(document).ready(function(){
+    updatePizza();
+    $("#pizzaName").on("input", function(){
+        let name = $('#pizzaName').val();
+        $('.card-title[data-index-number="0"]').text(`${name}`) ;
+        // Print entered value in a div box
+        //console.log($(this).val());
+        updatePizza();
+    });
+    $("#pizzaQuantity").on("input", function(){
+        // Print entered value in a div box
+        //console.log($(this).val());
+        updatePizza();
+    });
+});
+
 // https://stackoverflow.com/questions/15839169/how-to-get-value-of-selected-radio-button
 let updatePizza = () => {
     if (typeof Storage !== "undefined") {
@@ -157,6 +173,14 @@ let updatePizza = () => {
             currentOrder = [];
         }
 
+        let name = $('#pizzaName').val();
+        if (name === "") {
+            name = "Pizza"
+        }
+        let quantity = $('#pizzaQuantity').val();
+        if (quantity === "") {
+            quantity = "1";
+        }
         let size = $('#pizzaSize').text();
         let crust = $('#pizzaCrust').text();
         let sauce = $('#pizzaSauce').text();
@@ -164,10 +188,12 @@ let updatePizza = () => {
 
         let toppingsMeatList = getCheckBoxes('ToppingsMeat');
         let toppingsNonMeatsList = getCheckBoxes('ToppingsNonMeats');
-        let pizza = {size, crust, sauce, cheese, toppingsMeatList, toppingsNonMeatsList};
-        console.log(pizza);
+        let pizza = {name, quantity, size, crust, sauce, cheese, toppingsMeatList, toppingsNonMeatsList};
         
-        calculatePizzaPrice(pizza)
+        let price = calculatePizzaPrice(pizza)
+
+        pizza.prize = price;
+        console.log(pizza);
     
         /*var testUser = {pass:'pass', fName: 'greg', lName:'hab'};
         let testEmail = 'test@gmail.com';
@@ -201,19 +227,23 @@ let calculatePizzaPrice = (pizza) => {
     } else if (pizza.size === 'X-Large" (+6)') {
         price += 6;
     } 
-
     if (pizza.crust === "Deep Dish (+2.95)") {
         price += 2.95
     }
+    let quantity = $('#pizzaQuantity').val();
+    if (quantity === "") {
+        quantity = "1";
+    }
+    price *= quantity;
     price = price.toFixed(2); // round to 2 decimals.
     $('#pizzaPrice').text("$" + price.toString());
-    console.log(price);
+    //console.log(price);
     return price;
 }
 
 let colorFavoriteButton = () => {
     let checked = $('#favoritePizzaButton').attr("data-state");
-    console.log(checked);
+    //console.log(checked);
 
 }
 
@@ -223,13 +253,13 @@ let toggleFavoriteButton = () => {
     //let checked = button.attr("checked");
     //console.log(checked);
     if (checked) {
-        console.log("true");
+        //console.log("true");
         //button.prop("data-state", false);
         //button.html("Click to un-favorite order");
         $('#favoriteButtonText').text("Click to un-favorite order");
         button.css('background-color', 'red');
     } else {
-        console.log("false");
+        //console.log("false");
         //button.prop("data-state", true);
         //button.html("Click to favorite order");
         $('#favoriteButtonText').text("Click to favorite order");
@@ -254,6 +284,6 @@ let favoriteAPizza = (pizza) => {
     }
     price = price.toFixed(2); // round to 2 decimals.
     $('#pizzaPrice').text("$" + price.toString());
-    console.log(price);
+    //console.log(price);
     return price;
 }

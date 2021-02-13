@@ -130,6 +130,7 @@ let getCheckBoxes = (feature) => {
 }
 
 
+
 // https://stackoverflow.com/questions/15839169/how-to-get-value-of-selected-radio-button
 let checkoutPizza = () => {
     if (typeof Storage !== "undefined") {
@@ -147,8 +148,8 @@ let checkoutPizza = () => {
         console.log(currentOrder);
 
 
-        ///window.location.href = "checkout.html";
-        //window.location.href="cart.html";
+        //window.location.href = "checkout.html";
+        window.location.href="cart.html";
 
     } else {
         window.alert("Sorry, your browser does not support Web Storage...");

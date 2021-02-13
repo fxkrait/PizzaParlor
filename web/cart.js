@@ -12,4 +12,3 @@ function showDeliveryOptions() {
   document.getElementById('deliveryoptions').style.display = "block";
   document.getElementById('customerForm').style.display = 'none';
 }
-

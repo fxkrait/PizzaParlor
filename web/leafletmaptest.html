@@ -1,0 +1,148 @@
+<head>
+    <title>Leaflet Address Lookup and Coordinates</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+    <script src="cart.js"></script>
+    <style type="text/css">
+   
+    #lat, #lon { text-align:right }
+    #map { width:100%;height:50%;padding:0;margin:0; }
+    .address { cursor:pointer }
+    .address:hover { color:#AA0000;text-decoration:underline }
+    </style>
+    </head>
+    <body>
+    <div style="display:none;">
+    <b>Coordinates</b>
+    <form>
+    <input type="text" name="lat" id="lat" size=12 value="">
+    <input type="text" name="lon" id="lon" size=12 value="">
+    </form>
+</div>
+    
+    
+    <b>Search your address to see if you qualify for delivery:</b>
+    <div id="search">
+    <input type="text" name="addr" value="" id="addr" size="58" />
+    <button type="button" onclick="addr_search();">Search</button>
+    <div id="addressmsg" style="display:none;"><br><b>Please pick an address to proceed:</b></div>
+    <div id="results" style="color:blue;"></div>
+    </div>
+    <div id="submitDelivery" style="display:None;">
+        <input type="submit" value="Submit Order">
+        </div>
+    
+    <br />
+    
+    <div id="map"></div>
+
+    
+    
+
+    
+    <script type="text/javascript">
+    
+    // University of Washington Tacoma aka Aroma of Tacoma
+    var startlat = 47.24521750;
+    var startlon = -122.43981965;
+    
+    var options = {
+     center: [startlat, startlon],
+     zoom: 11
+    }
+    
+    document.getElementById('lat').value = startlat;
+    document.getElementById('lon').value = startlon;
+    
+    var map = L.map('map', options);
+    var nzoom = 12;
+    
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {attribution: 'OSM'}).addTo(map);
+
+    // define rectangle geographical bounds
+var bounds = [[47.16993551, -122.56377697], [47.31927592, -122.32040405]];
+
+// create an blue rectangle
+L.rectangle(bounds, {color: "#80a3dd", weight: 1}).addTo(map);
+    
+    var myMarker = L.marker([startlat, startlon], {title: "Coordinates", alt: "Coordinates", draggable: true}).addTo(map).on('dragend', function() {
+     var lat = myMarker.getLatLng().lat.toFixed(8);
+     var lon = myMarker.getLatLng().lng.toFixed(8);
+     var czoom = map.getZoom();
+     if(czoom < 18) { nzoom = czoom + 2; }
+     if(nzoom > 18) { nzoom = 18; }
+     if(czoom != 18) { map.setView([lat,lon], nzoom); } else { map.setView([lat,lon]); }
+     document.getElementById('lat').value = lat;
+     document.getElementById('lon').value = lon;
+     if ((lat > 47.16993551 && lat < 47.31927592) && (lon > -122.56377697 && lon < -122.32040405)) {
+     myMarker.bindPopup("This address qualifies for delivery!").openPopup();
+     document.getElementById('submitDelivery').style.display = "block";
+     }  else    {
+        myMarker.bindPopup("Sorry, we don't deliver here!").openPopup();
+        document.getElementById('submitDelivery').style.display = "none";
+     }
+    });
+    
+    function chooseAddr(lat1, lng1)
+    {
+     myMarker.closePopup();
+     map.setView([lat1, lng1],11);
+     myMarker.setLatLng([lat1, lng1]);
+     lat = lat1.toFixed(8);
+     lon = lng1.toFixed(8);
+     document.getElementById('lat').value = lat;
+     document.getElementById('lon').value = lon;
+     if ((lat > 47.16993551 && lat < 47.31927592) && (lon > -122.56377697 && lon < -122.32040405)) {
+     myMarker.bindPopup("This address qualifies for delivery!").openPopup();
+     document.getElementById('submitDelivery').style.display = "block";
+     }  else    {
+        myMarker.bindPopup("Sorry, we don't deliver here!").openPopup();
+        document.getElementById('submitDelivery').style.display = "none";
+     }
+    }
+    
+    
+    function myFunction(arr)
+    {
+     var out = "<br />";
+     var i;
+    
+     if(arr.length > 0)
+     {
+      for(i = 0; i < arr.length; i++)
+      {
+       out += "<div class='address' title='Show Location and Coordinates' onclick='chooseAddr(" + arr[i].lat + ", " + arr[i].lon + ");return false;'>" + arr[i].display_name + "</div>";
+      }
+      document.getElementById('results').innerHTML = out;
+     }
+     else
+     {
+      document.getElementById('results').innerHTML = "Sorry, no results...";
+     }
+    
+    }
+    
+    function addr_search()
+    {
+     var inp = document.getElementById("addr");
+     var xmlhttp = new XMLHttpRequest();
+     var url = "https://nominatim.openstreetmap.org/search?format=json&limit=3&q=" + inp.value;
+     xmlhttp.onreadystatechange = function()
+     {
+       if (this.readyState == 4 && this.status == 200)
+       {
+        var myArr = JSON.parse(this.responseText);
+        myFunction(myArr);
+       }
+     };
+     xmlhttp.open("GET", url, true);
+     xmlhttp.send();
+
+     document.getElementById('addressmsg').style.display = "block";
+    }
+    
+    </script>
+    
+    </body>
+    </html>

@@ -40,12 +40,15 @@ $(document).ready(function(){
   currentOrder.forEach((pizza) => {
     console.log("pizza price:");
     console.log(pizza.price);
+    price += parseFloat(pizza.price);
     console.log(i);
     console.log(pizza);
     //console.log("hey");
     buildPizza(i, pizza);
     i = i+1;
   });
+  $("#totalPrice").text(price.toString());
+
 });
 
 let title = "title";
@@ -189,10 +192,12 @@ let purchaseOrder = () => {
   console.log("purchaseOrder");
   //$("div").removeClass("accordion");
   $( "div" ).remove(".accordion");
-  alertify.set('notifier','position', 'top-center');
-  alertify.alert("test");
-  //$("div#accordian").remove();
+  $( "div" ).remove(".price");
 
+  alertify.set('notifier','position', 'top-center');
+  alertify.success("Thank you for your order!");
+  //$("div#accordian").remove();
+  sessionStorage.removeItem("currentOrder");
 }
 
 // remove pizza from current order

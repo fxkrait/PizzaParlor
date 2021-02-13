@@ -36,7 +36,10 @@ $(document).ready(function(){
 
   let i = 0;
   // traverse orders
+  let price = 0;
   currentOrder.forEach((pizza) => {
+    console.log("pizza price:");
+    console.log(pizza.price);
     console.log(i);
     console.log(pizza);
     //console.log("hey");
@@ -181,6 +184,21 @@ let updateListValuesOfPizza = (i, pizza) => {
   });
 }
 
+// buy your order
+let purchaseOrder = () => {
+  console.log("purchaseOrder");
+  //$("div").removeClass("accordion");
+  $( "div" ).remove(".accordion");
+  alertify.set('notifier','position', 'top-center');
+  alertify.alert("test");
+  //$("div#accordian").remove();
+
+}
+
+// remove pizza from current order
+let removePizza = () => {
+
+}
 
 let getPizzaValues = () => {
 

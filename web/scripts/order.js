@@ -271,8 +271,24 @@ let toggleFavoriteButton = () => {
 let resetPizza = () => {
 
 
+    // Order Name
+    $('#pizzaName').val("Pizza");
+
+    // Quantity
+    $('#pizzaQuantity').val(1);
+
+
     // Size
-    $('#sizeSmallRadio').attr('checked',true);
+    $('#sizeSmallRadio').click();
+
+    // Crust
+    $('#crustThinRadio').click();
+    
+    // Sauce
+    $('#sauceNoneRadio').click();
+
+    // Cheese
+    $('#cheeseNoneRadio').click();
 
     // toppingsMeat
     $('#hamCheck').prop('checked', false);

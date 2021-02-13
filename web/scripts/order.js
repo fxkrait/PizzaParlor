@@ -358,5 +358,52 @@ let favoriteAPizza = (pizza) => {
 }
 
 
+/*
+let getFavorites = () => {
+    // ensure storage is supported
+    if (typeof Storage !== "undefined") {
+        let favorites = JSON.parse(sessionStorage.getItem("favorites"));
+        if (favorites === null) {
+            favorites = [];
+        }
+  
+        // if no registered user found
+        if (registeredUsers[email] === undefined) {
+            console.log("if?");
+          if (!error) {
+              console.log("no error?");
+              // visually reset the fields again.
+              $("#registerFirstName").val("")
+              $("#registerLastName").val("")
+              $("#registerEmail").val("")
+              $("#registerPass").val("")
+              $("#registerPass2").val("")
+  
+              // then register the user
+              registeredUsers[email] = registeredUser;
+              console.log("registered users locally:");
+              console.log(registeredUsers)
+              sessionStorage.setItem("registeredUsers", JSON.stringify(registeredUsers));
+              //sessionStorage["registeredUsers"] = JSON.stringify(registeredUsers);
+              let getRegisteredUsers = JSON.parse(sessionStorage.getItem("registeredUsers"));
+              console.log("registeredUsers:");
+              console.log(getRegisteredUsers);
+              console.log(getRegisteredUsers[email]);
+  
+              alertify.success(`Registration successful for ${email}`);
+          }
+  
+        } else { // existing user registered with provided email
+          // print an error
+          alertify.error(`There is already a user registered with the email: ${email}`);
+        }
+      }
+    } else {
+        window.alert("Sorry, your browser does not support Web Storage...");
+      }
+sessionStorage.setItem("favorites", JSON.stringify(favorites));
+}*/
+
+
 ///////////////////////////////////////////////////////////////
 /// Save Orders:

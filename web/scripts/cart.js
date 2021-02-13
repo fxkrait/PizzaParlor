@@ -181,6 +181,7 @@ let updateListValuesOfPizza = (i, pizza) => {
   });
 }
 
+
 let getPizzaValues = () => {
 
 }

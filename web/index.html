@@ -50,78 +50,7 @@
       </ul>
     </div>
 
-    <div class="container">
-      <div class="navbar-collapse collapse" id="navbarNav3" style="">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
-              <i class="fas fa-shopping-cart"></i>
-              <span class="badge badge-pill badge-primary">5</span></a>
-            <div class="dropdown-menu dropdown-menu-right p-3" aria-labelledby="navbarDropdown"
-              style="min-width: 300px">
-              <h6>5 Items <span class="emphasis">$147.00</span></h6>
-              <div class="dropdown-divider"></div>
-              <ul class="shopping-cart-items pt-2 pl-0">
-                <li class="row mt-3">
-                  <div class="col-4">
-                    <img src=" https://via.placeholder.com/50/5fa9f8/ffffff" alt=""
-                      class="img-fluid d-none d-md-block rounded mb-2 shadow" />
-                  </div>
-                  <div class="col-8">
-                    <h6>
-                      <a href="#">Product Name</a>
-                    </h6>
-                    <span class="text-muted">2x</span>
-                    <span class="emphasis">$39.00</span>
-                  </div>
-                </li>
-                <li class="row mt-3">
-                  <div class="col-4">
-                    <img src=" https://via.placeholder.com/50/5fa9f8/ffffff" alt=""
-                      class="img-fluid d-none d-md-block rounded mb-2 shadow" />
-                  </div>
-                  <div class="col-8">
-                    <h6>
-                      <a href="#">Product Name</a>
-                    </h6>
-                    <span class="text-muted">1x</span>
-                    <span class="emphasis">$19.00</span>
-                  </div>
-                </li>
-                <li class="row mt-3">
-                  <div class="col-4">
-                    <img src=" https://via.placeholder.com/50/5fa9f8/ffffff" alt=""
-                      class="img-fluid d-none d-md-block rounded mb-2 shadow" />
-                  </div>
-                  <div class="col-8">
-                    <h6>
-                      <a href="#">Product Name</a>
-                    </h6>
-                    <span class="text-muted">1x</span>
-                    <span class="emphasis">$49.00</span>
-                  </div>
-                </li>
-                <li class="row mt-3">
-                  <div class="col-4">
-                    <img src=" https://via.placeholder.com/50/5fa9f8/ffffff" alt=""
-                      class="img-fluid d-none d-md-block rounded mb-2 shadow" />
-                  </div>
-                  <div class="col-8">
-                    <h6>
-                      <a href="#">Product Name</a>
-                    </h6>
-                    <span class="text-muted">1x</span>
-                    <span class="emphasis">$29.00</span>
-                  </div>
-                </li>
-              </ul>
-              <a href="#" class="btn btn-md btn-block btn-primary mt-3" style="margin: 0">View Cart</a>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
+   
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-right">
@@ -149,6 +78,8 @@
               <input class="form-control register" type="text" name="registerLastName" id="registerLastName" placeholder="Last Name" />
               <input class="form-control register" type="text" name="registerEmail" id="registerEmail" placeholder="Email" />
               <input class="form-control register" type="text" name="registerPass" id="registerPass" placeholder="Password" />
+              <input class="form-control register" type="text" name="registerPass" id="registerPass2" placeholder="Password Confirmation" />
+
               <input class="btn btn-primary" type="button"  onclick="register()" name="submit" value="Register" />
             </form>
           </div>
@@ -160,7 +91,7 @@
           </a>
           <div class="dropdown-menu p-3">
             <form class="form-horizontal" method="post" accept-charset="UTF-8">
-             <input class="btn btn-primary" type="button"  onclick="register()" name="submit" value="Sign Out" />
+             <input class="btn btn-primary" type="button"  onclick="signOut()" name="submit" value="Sign Out" />
             </form>
           </div>
         </li>

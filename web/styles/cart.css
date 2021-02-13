@@ -1,0 +1,16 @@
+.orderContainer {
+    display: flex; /* or inline-flex */
+    flex-direction: row;
+    justify-content: center;
+
+  }
+
+  .accordian {
+    display:flex;
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+
+  .flex-items {
+    margin: 10px;
+  }

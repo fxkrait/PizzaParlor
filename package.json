@@ -22,6 +22,7 @@
     "express": "^4.17.1",
     "form-data": "^3.0.0",
     "jsonwebtoken": "^8.5.1",
+    "leaflet-routing-machine": "^3.2.12",
     "mysql": "^2.18.1",
     "npm": "^7.5.3",
     "pg": "^8.0.2",

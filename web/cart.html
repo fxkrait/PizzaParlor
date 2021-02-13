@@ -16,9 +16,11 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
-<script src="cart.js"></script>
+<script src="./scripts/order.js"></script>
+<script src="./scripts/cart.js"></script>
 
 <link rel="stylesheet" href="styles/darkreader.css" />
+<link rel="stylesheet" href="styles/cart.css" />
 
 <style>
     /* Make the image fully responsive */
@@ -187,6 +189,11 @@
         
 </head>
 <body>
+
+    <input class="btn btn-primary" type="button" onclick="getOrder()" name="submit" value="Console Log Current Order" />
+    <input class="btn btn-primary" type="button" onclick="testModify()" name="submit" value="Test Modify" />
+
+
     <div id="googleMap" style="width:500px;height:400x;"></div>
     <form>
         <fieldset>
@@ -225,6 +232,112 @@
                     </div></div>
             </div>
         </fieldset>
+
+
+        <div class="orderContainer" id="orderContainer">
+
+            <template id="pizzaTemplate">
+                  <div class="accordion" style="width: 300px;">
+                <div class="card-header">
+                    <a class="card-title" id="pizzaName" data-index-number="0">
+                        Pizza
+                    </a>
+                </div>
+                <div id="collapseOne" class="card-body show" data-parent="#accordion">
+                    <p>                        
+
+                        <h5>Size:</h5>
+                        <p id="pizzaSize"></p>
+
+                        <h5>Crust:</h5>
+                        <p id="pizzaCrust"></p>
+
+
+                        <h5>Sauce:</h5>
+                        <p id="pizzaSauce"></p>
+
+                        <h5>Cheese (Cheddar):</h5>
+                        <p id="pizzaCheese"></p>
+
+                        <h5>Toppings (Meat):</h5>
+                        <ul id="pizzaToppingsMeatList"> </ul>
+
+                        <h5>Toppings (Non-Meats):</h5>
+                        <ul id="pizzaToppingsNonMeatsList"> </ul>
+                    </p>
+                    <input class="btn btn-primary" type="button" onclick="checkoutPizza()" name="submit" value="Edit" />
+                    <input class="btn btn-primary" type="button" onclick="resetPizza()" name="submit" value="Remove" />
+                </div>
+            </div>
+            </template>
+
+            <!---<div id="accordion" class="accordion" style="width: 300px;">
+                <div class="card-header">
+                    <a class="card-title" data-index-number="0">
+                        Pizza
+                    </a>
+                </div>
+                <div id="collapseOne" class="card-body show" data-parent="#accordion">
+                    <p>                        
+
+                        <h5>Size:</h5>
+                        <p id="pizzaSize">Small 10"</p>
+
+                        <h5>Crust:</h5>
+                        <p id="pizzaCrust">Thin</p>
+
+
+                        <h5>Sauce:</h5>
+                        <p id="pizzaSauce">None</p>
+
+                        <h5>Cheese (Cheddar):</h5>
+                        <p id="pizzaCheese">None</p>
+
+                        <h5>Toppings (Meat):</h5>
+                        <ul id="pizzaToppingsMeatList"> </ul>
+
+                        <h5>Toppings (Non-Meats):</h5>
+                        <ul id="pizzaToppingsNonMeatsList"> </ul>
+                    </p>
+                    <input class="btn btn-primary" type="button" onclick="checkoutPizza()" name="submit" value="Edit" />
+                    <input class="btn btn-primary" type="button" onclick="resetPizza()" name="submit" value="Remove" />
+                </div>
+            </div>
+
+            <div id="accordion" class="accordion" style="width: 300px;">
+                <div class="card-header">
+                    <a class="card-title" data-index-number="0">
+                        Pizza
+                    </a>
+                </div>
+                <div id="collapseOne" class="card-body show" data-parent="#accordion">
+                    <p>                        
+    
+                        <h5>Size:</h5>
+                        <p id="pizzaSize">Small 10"</p>
+    
+                        <h5>Crust:</h5>
+                        <p id="pizzaCrust">Thin</p>
+    
+    
+                        <h5>Sauce:</h5>
+                        <p id="pizzaSauce">None</p>
+    
+                        <h5>Cheese (Cheddar):</h5>
+                        <p id="pizzaCheese">None</p>
+    
+                        <h5>Toppings (Meat):</h5>
+                        <ul id="pizzaToppingsMeatList"> </ul>
+    
+                        <h5>Toppings (Non-Meats):</h5>
+                        <ul id="pizzaToppingsNonMeatsList"> </ul>
+                    </p>
+                    <input class="btn btn-primary" type="button" onclick="checkoutPizza()" name="submit" value="Edit" />
+                    <input class="btn btn-primary" type="button" onclick="resetPizza()" name="submit" value="Remove" />
+                </div>
+            </div>--->
+    </div>
+
         
 
 </body>

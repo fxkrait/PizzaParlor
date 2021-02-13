@@ -193,6 +193,8 @@ let purchaseOrder = () => {
   //$("div").removeClass("accordion");
   $( "div" ).remove(".accordion");
   $( "div" ).remove(".price");
+  $( "div" ).remove(".fields");
+  $( "div" ).remove(".info");
 
   alertify.set('notifier','position', 'top-center');
   alertify.success("Thank you for your order!");

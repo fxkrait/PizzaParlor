@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <!-- defines that this document is an HTML5 document -->
 <!-- Comment. It may span multiple lines -->
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
     crossorigin="anonymous"></script>
@@ -13,9 +14,8 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="./scripts/order.js"></script>
-<link rel="stylesheet" href="styles/darkreader.css" />
 <link rel="stylesheet" href="styles/order.css" />
-
+<link rel="stylesheet" href="styles/darkreader.css" />
 
 <style>
     /* Make the image fully responsive */
@@ -176,7 +176,7 @@
             <div class="col-md-8">
                 <div class="container">
                     <div class="row">
-                <input class="btn btn-primary" type="button" onclick="resetPizza()" name="submit" value="Reset Pizza" />
+                <input class="btn btn-primary" type="button" onclick="register()" name="submit" value="Reset Pizza" />
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Load a favorite Order
@@ -208,36 +208,36 @@
             </div>>
 
                 <br>
-                <h3>Pizza Name:</h3>
-                <input class="form-control register" type="text" name="pizzaName" id="pizzaName" value="Pizza"
-                    placeholder="Pizza" />
+                <h3>Order Name:</h3>
+                <input class="form-control register" type="text" name="orderName" id="orderName"
+                    placeholder="Order No 1" />
                 <h3>Quantity:</h3>
-                <input class="form-control register" type="number" name="pizzaQuantity" id="pizzaQuantity" value=1 placeholder="1" />
+                <input class="form-control register" type="number" name="quantity" id="quantity" placeholder="1" />
 
 
                 <h3>Size:</h3>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="SizeRadios" id="sizeSmallRadio" value='Small 10"'  onclick="updateRadio('Size')"
+                    <input class="form-check-input" type="radio" name="SizeRadios" id="exampleRadios1" value='Small 10"'  onclick="updateRadio('Size')"
                         checked >
-                    <label class="form-check-label" for="sizeSmallRadio">
+                    <label class="form-check-label" for="exampleRadios1">
                         Small 10"
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="SizeRadios" id="sizeMediumRadio" value='Medium 12" (+2)' onclick="updateRadio('Size')"/>
-                    <label class="form-check-label" for="sizeMediumRadio">
+                    <input class="form-check-input" type="radio" name="SizeRadios" id="exampleRadios2" value='Medium 12" (+2)' onclick="updateRadio('Size')"/>
+                    <label class="form-check-label" for="exampleRadios2">
                         Medium 12" (+2)
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="SizeRadios" id="sizeLargeRadio" value='Large 14" (+4)' onclick="updateRadio('Size')">
-                    <label class="form-check-label" for="sizeLargeRadio">
+                    <input class="form-check-input" type="radio" name="SizeRadios" id="exampleRadios3" value='Large 14" (+4)' onclick="updateRadio('Size')">
+                    <label class="form-check-label" for="exampleRadios3">
                         Large 14" (+4)
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="SizeRadios" id="sizeXLargeRadio" value='X-Large" (+6)' onclick="updateRadio('Size')">
-                    <label class="form-check-label" for="sizeXLargeRadio">
+                    <input class="form-check-input" type="radio" name="SizeRadios" id="exampleRadios3" value='X-Large" (+6)' onclick="updateRadio('Size')">
+                    <label class="form-check-label" for="exampleRadios3">
                         X-Large" (+6)
                     </label>
                 </div>
@@ -245,23 +245,23 @@
 
                 <h3>Crust:</h3>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="CrustRadios" id="crustThinRadio"
+                    <input class="form-check-input" type="radio" name="CrustRadios" id="exampleRadios1"
                         value="Thin"  onclick="updateRadio('Crust')" checked >
-                    <label class="form-check-label" for="crustThinRadio">
+                    <label class="form-check-label" for="exampleRadios1">
                         Thin
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="CrustRadios" id="crustThickRadio"
+                    <input class="form-check-input" type="radio" name="CrustRadios" id="exampleRadios2"
                         value="Thick" onclick="updateRadio('Crust')">
-                    <label class="form-check-label" for="crustThickRadio">
+                    <label class="form-check-label" for="exampleRadios2">
                         Thick
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="CrustRadios" id="crustDeepDishRadio"
+                    <input class="form-check-input" type="radio" name="CrustRadios" id="exampleRadios3"
                         value="Deep Dish (+2.95)" onclick="updateRadio('Crust')">
-                    <label class="form-check-label" for="crustDeepDishRadio">
+                    <label class="form-check-label" for="exampleRadios3">
                         Deep Dish (+2.95)
                     </label>
                 </div>
@@ -270,46 +270,46 @@
 
                 <h3>Sauce:</h3>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="SauceRadios" id="sauceNoneRadio" value="None" onclick="updateRadio('Sauce')"
+                    <input class="form-check-input" type="radio" name="SauceRadios" id="exampleRadios1" value="None" onclick="updateRadio('Sauce')"
                         checked>
-                    <label class="form-check-label" for="sauceNoneRadio">
+                    <label class="form-check-label" for="exampleRadios1">
                         None
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="SauceRadios" id="sauceRobustInspiredTomatoSauceRadio" value="Robust Inspired Tomato Sauce" onclick="updateRadio('Sauce')">
-                    <label class="form-check-label" for="sauceRobustInspiredTomatoSauceRadio">
+                    <input class="form-check-input" type="radio" name="SauceRadios" id="exampleRadios2" value="Robust Inspired Tomato Sauce" onclick="updateRadio('Sauce')">
+                    <label class="form-check-label" for="exampleRadios2">
                         Robust Inspired Tomato Sauce
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="SauceRadios" id="sauceHeartMarinaraSauceRadio" value="Hearty Marinara Sauce" onclick="updateRadio('Sauce')">
-                    <label class="form-check-label" for="sauceHeartMarinaraSauceRadio">
+                    <input class="form-check-input" type="radio" name="SauceRadios" id="exampleRadios3" value="Hearty Marinara Sauce" onclick="updateRadio('Sauce')">
+                    <label class="form-check-label" for="exampleRadios3">
                         Hearty Marinara Sauce
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="SauceRadios" id="sauceHoneyBBQSauceRadio" value="Honey BBQ Sauce" onclick="updateRadio('Sauce')">
-                    <label class="form-check-label" for="sauceHoneyBBQSauceRadio">
+                    <input class="form-check-input" type="radio" name="SauceRadios" id="exampleRadios3" value="Honey BBQ Sauce" onclick="updateRadio('Sauce')">
+                    <label class="form-check-label" for="exampleRadios3">
                         Honey BBQ Sauce
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="SauceRadios" id="sauceGarlicParmesanSauceRadio" value="Garlic Parmesan Sauce" onclick="updateRadio('Sauce')">
-                    <label class="form-check-label" for="sauceGarlicParmesanSauceRadio">
+                    <input class="form-check-input" type="radio" name="SauceRadios" id="exampleRadios3" value="Garlic Parmesan Sauce" onclick="updateRadio('Sauce')">
+                    <label class="form-check-label" for="exampleRadios3">
                         Garlic Parmesan Sauce
 
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="SauceRadios" id="sauceAlfredoSauceRadio" value="Alfredo Sauce" onclick="updateRadio('Sauce')">
-                    <label class="form-check-label" for="sauceAlfredoSauceRadio">
+                    <input class="form-check-input" type="radio" name="SauceRadios" id="exampleRadios3" value="Alfredo Sauce" onclick="updateRadio('Sauce')">
+                    <label class="form-check-label" for="exampleRadios3">
                         Alfredo Sauce
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="SauceRadios" id="sauceRanchRadio" value="Ranch" onclick="updateRadio('Sauce')">
-                    <label class="form-check-label" for="sauceRanchRadio">
+                    <input class="form-check-input" type="radio" name="SauceRadios" id="exampleRadios3" value="Ranch" onclick="updateRadio('Sauce')">
+                    <label class="form-check-label" for="exampleRadios3">
                         Ranch
                     </label>
                 </div>
@@ -317,37 +317,37 @@
 
                 <h3>Cheese (Cheddar):</h3>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="CheeseRadios" id="cheeseNoneRadio" value="None" onclick="updateRadio('Cheese')"
+                    <input class="form-check-input" type="radio" name="CheeseRadios" id="exampleRadios1" value="None" onclick="updateRadio('Cheese')"
                         checked>
-                    <label class="form-check-label" for="cheeseNoneRadio">
+                    <label class="form-check-label" for="exampleRadios1">
                         None
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="CheeseRadios" id="cheeseLightRadio" onclick="updateRadio('Cheese')"
+                    <input class="form-check-input" type="radio" name="CheeseRadios" id="exampleRadios2" onclick="updateRadio('Cheese')"
                         value="Light">
-                    <label class="form-check-label" for="cheeseLightRadio">
+                    <label class="form-check-label" for="exampleRadios2">
                         Light
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="CheeseRadios" id="cheeseNormalRadio" onclick="updateRadio('Cheese')"
+                    <input class="form-check-input" type="radio" name="CheeseRadios" id="exampleRadios3" onclick="updateRadio('Cheese')"
                         value="Normal">
-                    <label class="form-check-label" for="cheeseNormalRadio">
+                    <label class="form-check-label" for="exampleRadios3">
                         Normal
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="CheeseRadios" id="cheeseExtraRadio" onclick="updateRadio('Cheese')"
+                    <input class="form-check-input" type="radio" name="CheeseRadios" id="exampleRadios3" onclick="updateRadio('Cheese')"
                         value="Extra">
-                    <label class="form-check-label" for="cheeseExtraRadio">
+                    <label class="form-check-label" for="exampleRadios3">
                         Extra
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="CheeseRadios" id="cheeseDoubleRadio" onclick="updateRadio('Cheese')"
+                    <input class="form-check-input" type="radio" name="CheeseRadios" id="exampleRadios3" onclick="updateRadio('Cheese')"
                         value="Double">
-                    <label class="form-check-label" for="cheeseDoubleRadiog">
+                    <label class="form-check-label" for="exampleRadios3">
                         Double
                     </label>
                 </div>
@@ -408,97 +408,97 @@
 
                 <h3>Toppings (Non-Meats):</h3>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="Hot Buffalo Sauce" id="hotBuffaloSauceCheck" name="ToppingsNonMeatsCheckboxes" onclick="updateCheckBoxes('ToppingsNonMeats')">
+                    <input class="form-check-input" type="checkbox" value="Hot Buffalo Sauce" id="defaultCheck1" name="ToppingsNonMeatsCheckboxes" onclick="updateCheckBoxes('ToppingsNonMeats')">
                     <label class="form-check-label" for="defaultCheck1">
                         Hot Buffalo Sauce
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="Garlic" id="garlicCheck" name="ToppingsNonMeatsCheckboxes" onclick="updateCheckBoxes('ToppingsNonMeats')">
+                    <input class="form-check-input" type="checkbox" value="Garlic" id="defaultCheck1" name="ToppingsNonMeatsCheckboxes" onclick="updateCheckBoxes('ToppingsNonMeats')">
                     <label class="form-check-label" for="defaultCheck1">
                         Garlic
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="Jalapeno Peppers" id="jalapenoPeppersCheck" name="ToppingsNonMeatsCheckboxes" onclick="updateCheckBoxes('ToppingsNonMeats')">
+                    <input class="form-check-input" type="checkbox" value="Jalapeno Peppers" id="defaultCheck1" name="ToppingsNonMeatsCheckboxes" onclick="updateCheckBoxes('ToppingsNonMeats')">
                     <label class="form-check-label" for="defaultCheck1">
                         Jalapeno Peppers
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="Onions" id="onionsCheck" name="ToppingsNonMeatsCheckboxes" onclick="updateCheckBoxes('ToppingsNonMeats')">
+                    <input class="form-check-input" type="checkbox" value="Onions" id="defaultCheck1" name="ToppingsNonMeatsCheckboxes" onclick="updateCheckBoxes('ToppingsNonMeats')">
                     <label class="form-check-label" for="defaultCheck1">
                         Onions
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="Banana Peppers" id="bananaPeppersCheck" name="ToppingsNonMeatsCheckboxes" onclick="updateCheckBoxes('ToppingsNonMeats')">
+                    <input class="form-check-input" type="checkbox" value="Banana Peppers" id="defaultCheck1" name="ToppingsNonMeatsCheckboxes" onclick="updateCheckBoxes('ToppingsNonMeats')">
                     <label class="form-check-label" for="defaultCheck1">
                         Banana Peppers
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="Diced Tomatoes" id="dicedTomatoesCheck" name="ToppingsNonMeatsCheckboxes" onclick="updateCheckBoxes('ToppingsNonMeats')">
+                    <input class="form-check-input" type="checkbox" value="Diced Tomatoes" id="defaultCheck1" name="ToppingsNonMeatsCheckboxes" onclick="updateCheckBoxes('ToppingsNonMeats')">
                     <label class="form-check-label" for="defaultCheck1">
                         Diced Tomatoes
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="Black Olives" id="blackOlivesCheck" name="ToppingsNonMeatsCheckboxes" onclick="updateCheckBoxes('ToppingsNonMeats')">
+                    <input class="form-check-input" type="checkbox" value="Black Olives" id="defaultCheck1" name="ToppingsNonMeatsCheckboxes" onclick="updateCheckBoxes('ToppingsNonMeats')">
                     <label class="form-check-label" for="defaultCheck1">
                         Black Olives
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="Mushrooms" id="mushroomsCheck" name="ToppingsNonMeatsCheckboxes" onclick="updateCheckBoxes('ToppingsNonMeats')">
+                    <input class="form-check-input" type="checkbox" value="Mushrooms" id="defaultCheck1" name="ToppingsNonMeatsCheckboxes" onclick="updateCheckBoxes('ToppingsNonMeats')">
                     <label class="form-check-label" for="defaultCheck1">
                         Mushrooms
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="Pineapple" id="pineappleCheck" name="ToppingsNonMeatsCheckboxes" onclick="updateCheckBoxes('ToppingsNonMeats')">
+                    <input class="form-check-input" type="checkbox" value="Pineapple" id="defaultCheck1" name="ToppingsNonMeatsCheckboxes" onclick="updateCheckBoxes('ToppingsNonMeats')">
                     <label class="form-check-label" for="defaultCheck1">
                         Pineapple
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="Shredded Provolone Cheese" id="shreddedProvoloneCheeseCheck" name="ToppingsNonMeatsCheckboxes" onclick="updateCheckBoxes('ToppingsNonMeats')">
+                    <input class="form-check-input" type="checkbox" value="Shredded Provolone Cheese" id="defaultCheck1" name="ToppingsNonMeatsCheckboxes" onclick="updateCheckBoxes('ToppingsNonMeats')">
                     <label class="form-check-label" for="defaultCheck1">
                         Shredded Provolone Cheese
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="Cheddar Cheese" id="cheddarCheeseCheck" name="ToppingsNonMeatsCheckboxes" onclick="updateCheckBoxes('ToppingsNonMeats')">
+                    <input class="form-check-input" type="checkbox" value="Cheddar Cheese" id="defaultCheck1" name="ToppingsNonMeatsCheckboxes" onclick="updateCheckBoxes('ToppingsNonMeats')">
                     <label class="form-check-label" for="defaultCheck1">
                         Cheddar Cheese
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="Green Peppers" id="greenPeppersCheck" name="ToppingsNonMeatsCheckboxes" onclick="updateCheckBoxes('ToppingsNonMeats')">
+                    <input class="form-check-input" type="checkbox" value="Green Peppers" id="defaultCheck1" name="ToppingsNonMeatsCheckboxes" onclick="updateCheckBoxes('ToppingsNonMeats')">
                     <label class="form-check-label" for="defaultCheck1">
                         Green Peppers
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="Spinach" id="spinachCheck" name="ToppingsNonMeatsCheckboxes" onclick="updateCheckBoxes('ToppingsNonMeats')">
+                    <input class="form-check-input" type="checkbox" value="Spinach" id="defaultCheck1" name="ToppingsNonMeatsCheckboxes" onclick="updateCheckBoxes('ToppingsNonMeats')">
                     <label class="form-check-label" for="defaultCheck1">
                         Spinach
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="Roasted Red Peppers" id="roastedRedPeppersCheck" name="ToppingsNonMeatsCheckboxes" onclick="updateCheckBoxes('ToppingsNonMeats')">
+                    <input class="form-check-input" type="checkbox" value="Roasted Red Peppers" id="defaultCheck1" name="ToppingsNonMeatsCheckboxes" onclick="updateCheckBoxes('ToppingsNonMeats')">
                     <label class="form-check-label" for="defaultCheck1">
                         Roasted Red Peppers
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="Feta Cheese" id="fetaCheeseCheck" name="ToppingsNonMeatsCheckboxes" onclick="updateCheckBoxes('ToppingsNonMeats')">
+                    <input class="form-check-input" type="checkbox" value="Feta Cheese" id="defaultCheck1" name="ToppingsNonMeatsCheckboxes" onclick="updateCheckBoxes('ToppingsNonMeats')">
                     <label class="form-check-label" for="defaultCheck1">
                         Feta Cheese
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="Shredded Parmesan Asiago" id="shreddedParmesanAsiagoCheck" name="ToppingsNonMeatsCheckboxes" onclick="updateCheckBoxes('ToppingsNonMeats')">
+                    <input class="form-check-input" type="checkbox" value="Shredded Parmesan Asiago" id="defaultCheck1" name="ToppingsNonMeatsCheckboxes" onclick="updateCheckBoxes('ToppingsNonMeats')">
                     <label class="form-check-label" for="defaultCheck1">
                         Shredded Parmesan Asiago
                     </label>

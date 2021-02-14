@@ -313,7 +313,9 @@ let deletePizza = (i) => {
     //  (so that they have the correct index)
     //   also change deletePizza(i) to deletePizza(i-1)
 
-
+    if(currentOrder === null || currentOrder.length === 0) {
+      noPizzasInCartScreen();
+    }
     
 
 

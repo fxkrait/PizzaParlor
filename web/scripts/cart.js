@@ -263,6 +263,10 @@ let purchaseOrder = () => {
   alertify.success("Thank you for your order!");
   //$("div#accordian").remove();
   sessionStorage.removeItem("currentOrder");
+  let currentOrder = JSON.parse(sessionStorage.getItem("currentOrder"));
+  if(currentOrder === null || currentOrder.length === 0) {
+    noPizzasInCartScreen();
+  }
 }
 
 

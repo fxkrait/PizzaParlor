@@ -217,7 +217,7 @@ function register() {
 
 
 
-      if (fName === "" || lName === "" || email === "" || pass === ""){
+      if (fName === "" || lName === "" || email === "" || pass === "" || pass2 === ""){
           alertify.error("Please fill out all fields to register");
 
         /*if (fName === "") { 

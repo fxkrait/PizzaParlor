@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" />
 
 <link rel="stylesheet" href="styles/menu.css" />
-
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
@@ -83,7 +83,7 @@
                 <form class="form-horizontal" method="post" accept-charset="UTF-8">
                   <input class="form-control login" type="text" name="loginEmail" id="loginEmail" placeholder="Email" />
                   <input class="form-control login" type="text" name="loginPass" id="loginPass" placeholder="Password" />
-                  <input class="btn btn-primary" type="button" onclick="login()" name="submit" value="Login" />
+                  <input class="btn btn-primary" id="userLoginButton" type="button" onclick="login()" name="submit" value="Login" />
                 </form>
               </div>
             </li>
@@ -100,7 +100,7 @@
                   <input class="form-control register" type="text" name="registerPass" id="registerPass" placeholder="Password" />
                   <input class="form-control register" type="text" name="registerPass" id="registerPass2" placeholder="Password Confirmation" />
     
-                  <input class="btn btn-primary" type="button"  onclick="register()" name="submit" value="Register" />
+                  <input class="btn btn-primary" id="userRegistrationButton" type="button"  onclick="register()" name="submit" value="Register" />
                 </form>
               </div>
             </li>
@@ -139,7 +139,7 @@
 
     <div class="row info">
         <div class="col-md-12 offset-md-5">
-            <h3>Your Pizzas:</h3>
+            <h3 class="toHideIfNoOrders">Your Pizzas:</h3>
             <br>
     </div>
     </div>
@@ -289,7 +289,7 @@
     </div>
 
     <br>
-    <div class="row price">
+    <div class="row price toHideIfNoOrders">
         <div class="col-md-12 offset-md-5">
     <h5>Total Price:</h5>
     <p id="totalPrice"></p>
@@ -297,7 +297,7 @@
             </div>
     </div>
 
-    <div class="row fields">
+    <div class="row fields toHideIfNoOrders">
         <div class="col-md-12 offset-md-5">
             <form>
                 <fieldset>
@@ -362,7 +362,7 @@
 
 
         
-    <input class="btn btn-primary" type="button" onclick="purchaseOrder()" name="submit" value="Purchase Pizzas" />
+    <input class="btn btn-primary toHideIfNoOrders type="button" onclick="purchaseOrder()" name="submit" value="Purchase Pizzas" />
     </div>
     </div>
 

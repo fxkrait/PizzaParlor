@@ -45,7 +45,7 @@ name: "Big Pizza",
 price: "62.82",
 quantity: "3",
 sauce: "Ranch",
-size: 'X-Large" (+6)',
+size: 'X-Large 16" (+6)',
 toppingsMeatList: [
     "Ham",
     "Beef",
@@ -82,6 +82,8 @@ function signOut() {
     sessionStorage.removeItem("favorites");
     sessionStorage.removeItem("currentOrder");
     $("#userStatus").text('Anonymous User');
+    $('#userLoginButton').prop('disabled', false); 
+    $('#userRegistrationButton').prop('disabled', false);
 }
 
 function login() {
@@ -105,12 +107,17 @@ function login() {
     //alert(email);
 
     let getRegisteredUsers = JSON.parse(sessionStorage.getItem("registeredUsers"));
+    if (getRegisteredUsers === null) {
+      getRegisteredUsers = {};
+    }
 
     let getExistingUser = getRegisteredUsers[email];
+    console.log("getExistingUser is:");
+    console.log(getExistingUser);
 
     //console.log("before if");
     // if no registered user found
-    if (getExistingUser !== null && getExistingUser.pass === pass) {
+    if (getExistingUser !== undefined && getExistingUser.pass === pass) {
 
         $("#loginEmail").val("")
         $("#loginPass").val("")
@@ -122,6 +129,8 @@ function login() {
       console.log(getExistingUser);
       $("#userStatus").text('Hello, ' + `${getExistingUser.fName}`);
       resetFavorites();
+      $('#userLoginButton').prop('disabled', true); 
+      $('#userRegistrationButton').prop('disabled', true);
 
       //let email = $("#loginEmail").val(); 
       //let pass =  $("#loginPass").val();
@@ -159,6 +168,7 @@ function login() {
 // run on load
 $(document).ready(function(){
 
+  alertify.set('notifier','position', 'top-center');
 
     if (typeof Storage !== "undefined") {
 
@@ -179,6 +189,8 @@ $(document).ready(function(){
 */
             $("#userStatus").text('Hello, ' + `${loggedInUser.fName}`);
             $("#userStatus").css('color', 'red');
+            $('#userLoginButton').prop('disabled', true); 
+            $('#userRegistrationButton').prop('disabled', true);
 
         }
       

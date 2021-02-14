@@ -490,7 +490,7 @@ let favoriteAPizza = (pizza) => {
         price += 2
     } else if (pizza.size === 'Large 14" (+4)') {
         price += 4;
-    } else if (pizza.size === 'X-Large" (+6)') {
+    } else if (pizza.size === 'X-Large 16" (+6)') {
         price += 6;
     } 
 
@@ -504,7 +504,7 @@ let favoriteAPizza = (pizza) => {
 }
 
 
-/*
+
 let getFavorites = () => {
     // ensure storage is supported
     if (typeof Storage !== "undefined") {
@@ -512,43 +512,24 @@ let getFavorites = () => {
         if (favorites === null) {
             favorites = [];
         }
-  
-        // if no registered user found
-        if (registeredUsers[email] === undefined) {
-            console.log("if?");
-          if (!error) {
-              console.log("no error?");
-              // visually reset the fields again.
-              $("#registerFirstName").val("")
-              $("#registerLastName").val("")
-              $("#registerEmail").val("")
-              $("#registerPass").val("")
-              $("#registerPass2").val("")
-  
-              // then register the user
-              registeredUsers[email] = registeredUser;
-              console.log("registered users locally:");
-              console.log(registeredUsers)
-              sessionStorage.setItem("registeredUsers", JSON.stringify(registeredUsers));
-              //sessionStorage["registeredUsers"] = JSON.stringify(registeredUsers);
-              let getRegisteredUsers = JSON.parse(sessionStorage.getItem("registeredUsers"));
-              console.log("registeredUsers:");
-              console.log(getRegisteredUsers);
-              console.log(getRegisteredUsers[email]);
-  
-              alertify.success(`Registration successful for ${email}`);
-          }
+        console.log("favorites are:");
+        console.log(favorites);
+
+        let loggedInUser = JSON.parse(sessionStorage.getItem("loggedInUser"));
+        console.log(loggedInUser);
+
+        if(loggedInUser != null) {// logged in
+            alertify.success("logged in");
   
         } else { // existing user registered with provided email
           // print an error
-          alertify.error(`There is already a user registered with the email: ${email}`);
+          alertify.error("Not logged in");
         }
-      }
+        //sessionStorage.setItem("favorites", JSON.stringify(favorites));
     } else {
         window.alert("Sorry, your browser does not support Web Storage...");
       }
-sessionStorage.setItem("favorites", JSON.stringify(favorites));
-}*/
+}
 
 
 ///////////////////////////////////////////////////////////////

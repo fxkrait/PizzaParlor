@@ -29,11 +29,28 @@ let getOrder = () => {
   }
 }
 
+let redirectToOrderPage = () => {
+    window.location.href = "order.html";
+}
+
+let noPizzasInCartScreen = () => {
+  $( ".toHideIfNoOrders" ).remove();
+  $("body").append("<h2>Please add some pizzas into your shopping cart first.<\h2>");
+  $("body").append('<input class="btn btn-primary center" type="button" onclick="redirectToOrderPage()" name="submit" value="Add pizzas (click here)" />');
+  //class="toHideIfNoOrders"
+}
+
 // run on load
 $(document).ready(function(){
   buildHTMLPizzas();
 
+  let currentOrder = JSON.parse(sessionStorage.getItem("currentOrder"));
 
+  console.log("start currentOrder is: ");
+  console.log(currentOrder);
+  if(currentOrder === null || currentOrder.length === 0) {
+    noPizzasInCartScreen();
+  }
    // Delete Pizza Button
   //$(document).on('click', '.deletePizzaButton', function () {
     $(".deletePizzaButton").click(function() {
@@ -254,8 +271,12 @@ let purchaseOrder = () => {
 let deletePizza = (i) => {
   if (typeof Storage !== "undefined") {
     let currentOrder = JSON.parse(sessionStorage.getItem("currentOrder"));
-    currendOrder = currentOrder.splice(i, 1); // delete the ith pizza, shift everything else to the left.
-    console.log("current order is: ");
+    console.log("current order before:")
+    console.log(currentOrder);
+    currentOrder.splice(i, 1); // delete the ith pizza, shift everything else to the left.
+    //console.log("currend order after is: ");
+    //console.log(currendOrder);
+    console.log("current order after is: ");
     console.log(currentOrder);
     sessionStorage.setItem("currentOrder", JSON.stringify(currentOrder));
 
@@ -309,19 +330,24 @@ let buildHTMLPizzas = () => {
   //buildCart();
   let currentOrder = JSON.parse(sessionStorage.getItem("currentOrder"));
 
+  console.log("currentOrder is");
+  console.log(currentOrder);
   let i = 0;
   // traverse orders
   let price = 0;
-  currentOrder.forEach((pizza) => {
-    console.log("pizza price:");
-    console.log(pizza.price);
-    price += parseFloat(pizza.price);
-    console.log(i);
-    console.log(pizza);
-    //console.log("hey");
-    buildPizza(i, pizza);
-    i = i+1;
-  });
+  if(currentOrder !== null) {
+    currentOrder.forEach((pizza) => {
+      console.log("pizza price:");
+      console.log(pizza.price);
+      price += parseFloat(pizza.price);
+      console.log(i);
+      console.log(pizza);
+      //console.log("hey");
+      buildPizza(i, pizza);
+      i = i+1;
+    });
+    //$("#totalPrice").text(price.toString());
+  }
   $("#totalPrice").text(price.toString());  
 }
 
@@ -329,6 +355,8 @@ let updateTotalPrice = () => {
   console.log("cart updateTotalPrice()");
   //buildCart();
   let currentOrder = JSON.parse(sessionStorage.getItem("currentOrder"));
+  console.log("currentOrder updateTotalPrice is");
+  console.log(currentOrder);
 
   let i = 0;
   // traverse orders

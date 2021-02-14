@@ -519,16 +519,76 @@ let getFavorites = () => {
         console.log(loggedInUser);
 
         if(loggedInUser != null) {// logged in
-            alertify.success("logged in");
-  
+            //alertify.success("logged in");
+            console.log("logged in");
+            favorites.forEach(pizza => {
+                console.log("for each");
+                $("#favoriteOrderDropdownButton").after('<a class="dropdown-item" href="#">' + pizza.name + '</a>');
+            })
         } else { // existing user registered with provided email
           // print an error
-          alertify.error("Not logged in");
+          //alertify.error("Not logged in");
+          console.log("Not logged in");
         }
         //sessionStorage.setItem("favorites", JSON.stringify(favorites));
     } else {
         window.alert("Sorry, your browser does not support Web Storage...");
       }
+}
+
+
+
+// https://stackoverflow.com/questions/15839169/how-to-get-value-of-selected-radio-button
+let loadFavoritePizza = () => {
+    if (typeof Storage !== "undefined") {
+        //alertify.success("test");
+        console.log("loadFavoritedPizza");
+        //$(".addToCartButton").hide();
+
+        let loggedInUser = JSON.parse(sessionStorage.getItem("loggedInUser"));
+        console.log(loggedInUser);
+
+        if(loggedInUser != null) {// logged in
+
+
+        let favoritedPizzas = JSON.parse(sessionStorage.getItem("favorites"));
+        let favoritePizza = favoritedPizzas[0];
+        console.log(favoritePizza);
+
+        console.log(favoritePizza.name);
+        $('#pizzaName').val(favoritePizza.name);
+        $('#pizzaQuantity').val(favoritePizza.quantity);
+        console.log(favoritePizza.sauce);
+        //$("input[name=CrustRadios][value=" + currentOrder.crust + "]").prop('checked', true);
+        $("input[name=SizeRadios][value='" + favoritePizza.size + "']").prop('checked', true);
+        $("input[name=CrustRadios][value='" + favoritePizza.crust + "']").prop('checked', true);
+        $("input[name=SauceRadios][value='" + favoritePizza.sauce + "']").prop('checked', true);
+        $("input[name=CheeseRadios][value='" + favoritePizza.cheese + "']").prop('checked', true);
+
+        favoritePizza.toppingsMeatList.forEach(topping => {
+            $("input[name=ToppingsMeatCheckboxes][value='" + topping + "']").prop('checked', true);
+        })
+        favoritePizza.toppingsNonMeatsList.forEach(topping => {
+            $("input[name=ToppingsNonMeatsCheckboxes][value='" + topping + "']").prop('checked', true);
+        })
+        $('.card-title[data-index-number="0"]').text(`${favoritePizza.name}`) ;
+
+        updateRadio('Size')
+        updateRadio('Crust')
+        updateRadio('Sauce')
+        updateRadio('Cheese')
+        updateCheckBoxes('ToppingsMeat')
+        updateCheckBoxes('ToppingsNonMeats')
+
+     
+        let price = calculatePizzaPrice(favoritePizza)
+    } else {
+        alertify.error("You need to be logged in to access favorites");
+    }
+
+    } else {
+        window.alert("Sorry, your browser does not support Web Storage...");
+    }
 }
 
 

@@ -161,7 +161,16 @@ let redirectTest = () => {
 }
 
 $(document).ready(function(){
+    let editPizza = JSON.parse(sessionStorage.getItem("editPizza"));
+    let editIndex = JSON.parse(sessionStorage.getItem("editIndex"));
     updatePizza();
+
+    if (editIndex === null) {
+        $(".updatePizzaButton").hide();
+        updatePizza();
+    } else { //edit a pizza
+        loadEditedPizza();
+    }
     $("#pizzaName").on("input", function(){
         let name = $('#pizzaName').val();
         $('.card-title[data-index-number="0"]').text(`${name}`) ;
@@ -174,7 +183,135 @@ $(document).ready(function(){
         //console.log($(this).val());
         updatePizza();
     });
+
+    $(".updatePizzaButton").click(function() {
+        // your function here
+        console.log("updatePizzaButton");
+
+        if (typeof Storage !== "undefined") {
+            //alertify.success("test");
+    
+            let editPizza = JSON.parse(sessionStorage.getItem("editPizza"));
+            let editIndex = JSON.parse(sessionStorage.getItem("editIndex"));
+            let currentOrder = JSON.parse(sessionStorage.getItem("currentOrder"));
+
+
+            let updatedPizza = updatePizza();
+            currentOrder[editIndex] = updatedPizza;
+
+            console.log(currentOrder);
+
+            sessionStorage.setItem("currentOrder", JSON.stringify(currentOrder));
+            sessionStorage.removeItem("editPizza");
+            sessionStorage.removeItem("editIndex");
+
+            window.location.href="cart.html";
+
+    
+           /* pizza.price = price;
+            console.log(pizza);
+            return pizza;*/
+        } else {
+            window.alert("Sorry, your browser does not support Web Storage...");
+        }
+        
+        
+      });
 });
+
+
+// https://stackoverflow.com/questions/15839169/how-to-get-value-of-selected-radio-button
+let loadEditedPizza = () => {
+    if (typeof Storage !== "undefined") {
+        //alertify.success("test");
+        console.log("loadEditedPizza");
+        $(".addToCartButton").hide();
+
+
+        let currentOrder = JSON.parse(sessionStorage.getItem("editPizza"));
+
+        if (currentOrder === null) {
+            currentOrder = [];
+        }
+
+        console.log(currentOrder.name);
+        $('#pizzaName').val(currentOrder.name);
+        $('#pizzaQuantity').val(currentOrder.quantity);
+        console.log(currentOrder.sauce);
+        //$("input[name=CrustRadios][value=" + currentOrder.crust + "]").prop('checked', true);
+        $("input[name=SizeRadios][value='" + currentOrder.size + "']").prop('checked', true);
+        $("input[name=CrustRadios][value='" + currentOrder.crust + "']").prop('checked', true);
+        $("input[name=SauceRadios][value='" + currentOrder.sauce + "']").prop('checked', true);
+        $("input[name=CheeseRadios][value='" + currentOrder.cheese + "']").prop('checked', true);
+
+        currentOrder.toppingsMeatList.forEach(topping => {
+            $("input[name=ToppingsMeatCheckboxes][value='" + topping + "']").prop('checked', true);
+        })
+        currentOrder.toppingsNonMeatsList.forEach(topping => {
+            $("input[name=ToppingsNonMeatsCheckboxes][value='" + topping + "']").prop('checked', true);
+        })
+        $('.card-title[data-index-number="0"]').text(`${currentOrder.name}`) ;
+
+        updateRadio('Size')
+        updateRadio('Crust')
+        updateRadio('Sauce')
+        updateRadio('Cheese')
+        updateCheckBoxes('ToppingsMeat')
+        updateCheckBoxes('ToppingsNonMeats')
+
+
+
+        //let updatePizzaButton = '<input class="btn btn-primary" type="button" onclick="checkoutPizza()" name="submit" value="Add to Cart" />'
+        //$(".toReplaceWithUpdateButton").replaceWith(updatePizzaButton);
+
+
+
+
+        /*if (name === "") {
+            name = "testEdit";
+            //name = currentOrder.name;
+        }*/
+        /*let quantity = $('#pizzaQuantity').val();
+        if (quantity === "") {
+            quantity = pizza.quantity;
+        }*/
+        /*let size = $('#pizzaSize').text();
+        let crust = $('#pizzaCrust').text();
+        let sauce = $('#pizzaSauce').text();
+        let cheese = $('#pizzaCheese').text();*/
+/*
+        let toppingsMeatList = getCheckBoxes('ToppingsMeat');
+        let toppingsNonMeatsList = getCheckBoxes('ToppingsNonMeats');
+        let pizza = {name, quantity, size, crust, sauce, cheese, toppingsMeatList, toppingsNonMeatsList};
+  */      
+        let price = calculatePizzaPrice(currentOrder)
+
+    /*    pizza.price = price;
+        console.log(pizza);
+        return pizza;
+    */
+        /*var testUser = {pass:'pass', fName: 'greg', lName:'hab'};
+        let testEmail = 'test@gmail.com';
+        sessionStorage[testEmail] = JSON.stringify(testUser);
+        //console.log(sessionStorage['user']);
+        let testUserGot = JSON.parse(sessionStorage.getItem(testEmail))
+        console.log(testUserGot);
+        console.log(testUserGot.pass);
+        */
+       /*
+        let map = {};
+        map["test@gmail.com"]= {pass: "passtest", fName: "greg", lName: "hab"};
+        console.log(map);
+        sessionStorage.setItem('registeredUserMap', JSON.stringify(map))
+        let map2 = JSON.parse(sessionStorage.getItem('deletedItems'))
+        console.log(map2);
+    */
+        /*alertify.success(`Login successful for ${email}`);
+        alertify.error(`Login unsuccessful for ${email}`);*/
+    } else {
+        window.alert("Sorry, your browser does not support Web Storage...");
+    }
+}
 
 // https://stackoverflow.com/questions/15839169/how-to-get-value-of-selected-radio-button
 let updatePizza = () => {
@@ -239,7 +376,7 @@ let calculatePizzaPrice = (pizza) => {
         price += 2
     } else if (pizza.size === 'Large 14" (+4)') {
         price += 4;
-    } else if (pizza.size === 'X-Large" (+6)') {
+    } else if (pizza.size === 'X-Large 16" (+6)') {
         price += 6;
     } 
     if (pizza.crust === "Deep Dish (+2.95)") {
@@ -288,6 +425,8 @@ let resetPizza = () => {
 
     // Order Name
     $('#pizzaName').val("Pizza");
+    $('.card-title[data-index-number="0"]').text("Pizza") ;
+
 
     // Quantity
     $('#pizzaQuantity').val(1);
@@ -334,6 +473,12 @@ let resetPizza = () => {
     $('#shreddedParmesanAsiagoCheck').prop('checked', false);
 
     updatePizza();
+    updateRadio('Size')
+    updateRadio('Crust')
+    updateRadio('Sauce')
+    updateRadio('Cheese')
+    updateCheckBoxes('ToppingsMeat')
+    updateCheckBoxes('ToppingsNonMeats')
 
 
 }

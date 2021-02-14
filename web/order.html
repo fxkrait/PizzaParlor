@@ -12,10 +12,10 @@
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="./scripts/loginRegister.js"></script>
 <script src="./scripts/order.js"></script>
 <link rel="stylesheet" href="styles/darkreader.css" />
 <link rel="stylesheet" href="styles/order.css" />
-<script src="./scripts/loginRegister.js"></script>
 <link rel="stylesheet" href="styles/global.css" />
 
 
@@ -494,8 +494,8 @@
 
                 <h3>Total Pizza Price:</h3>
                 <p id="pizzaPrice">$33.45</p>
-                <input class="btn btn-primary" type="button" onclick="checkoutPizza()" name="submit" value="Add to Cart" />
-
+                <input class="btn btn-primary addToCartButton" type="button" onclick="checkoutPizza()" name="submit" value="Add to Cart" />
+                <input class="btn btn-primary updatePizzaButton" type="button" name="submit" value="Update Pizza and Return to Cart"  aria-hidden="true" />
                 <input class="btn btn-primary" type="button" onclick="resetPizza()" name="submit" value="Reset Current Pizza" />
 
 

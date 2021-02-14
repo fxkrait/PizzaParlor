@@ -31,25 +31,63 @@ let getOrder = () => {
 
 // run on load
 $(document).ready(function(){
-  //buildCart();
-  let currentOrder = JSON.parse(sessionStorage.getItem("currentOrder"));
+  buildHTMLPizzas();
 
-  let i = 0;
-  // traverse orders
-  let price = 0;
-  currentOrder.forEach((pizza) => {
-    console.log("pizza price:");
-    console.log(pizza.price);
-    price += parseFloat(pizza.price);
-    console.log(i);
-    console.log(pizza);
-    //console.log("hey");
-    buildPizza(i, pizza);
-    i = i+1;
-  });
-  $("#totalPrice").text(price.toString());
+
+   // Delete Pizza Button
+  //$(document).on('click', '.deletePizzaButton', function () {
+    $(".deletePizzaButton").click(function() {
+      // your function here
+        console.log("deletePizzaButton");
+        let i = $(this).attr('data-index-number');
+        console.log("i is: " + i);
+        deletePizza(i);
+      });
+    $(".editPizzaButton").click(function() {
+      // your function here
+      console.log("editPizzaButton");
+      let i = $(this).attr('data-index-number');
+      console.log("i is: " + i);
+      editPizza(i);
+    });
 
 });
+
+let editPizza = (i) => {
+  if (typeof Storage !== "undefined") {
+    console.log("");
+    console.log("editPizza()");
+    //let pizza = updatePizza();
+
+    let currentOrder = JSON.parse(sessionStorage.getItem("currentOrder"));
+    let editPizza = currentOrder[i];
+    let editIndex = i;
+
+    sessionStorage["editPizza"] = JSON.stringify(editPizza);
+    sessionStorage["editIndex"] = JSON.stringify(editIndex);
+    
+    console.log("pizza to edit:");
+    console.log(editPizza);
+    console.log("edit index (pizza index)");
+    console.log(editIndex);
+
+    /*let editPizzaTest = JSON.parse(sessionStorage.getItem("editPizza"));
+    let editPizzaIndex = JSON.parse(sessionStorage.getItem("editIndex"));
+
+    console.log("editPizzaTest:");
+    console.log(editPizzaTest);
+    console.log("editPizzaIndex");
+    console.log(editPizzaIndex);
+*/
+
+
+    //window.location.href = "checkout.html";
+    window.location.href="order.html";
+
+} else {
+    window.alert("Sorry, your browser does not support Web Storage...");
+}
+}
 
 let title = "title";
 let content = "content";
@@ -65,18 +103,26 @@ let useIt = () => {
 }
 
 
+
+/*
+
+'<input class="btn btn-primary editPizzaButton" type="button" onclick=editPizza(' + `${i}` +') name="submit" value="Edit" />',
+        '<input class="btn btn-primary deletePizzaButton" type="button" onclick=deletePizza(' + `${i}` +') name="submit" value="Remove" />',
+*/
+
+
 let buildPizza = (i, pizza) => {
 
   let accordian = [
-    '<div class="accordion" style="width: 300px;">',
+    '<div class=accordion ' + 'data-index-number='+ `${i} ` + 'style="width: 300px;">',
     '<div class="card-header">',
         '<a class="card-title" id=pizzaName' + `${i} ` + 'data-index-number='+ `${i}` + '>',
             'Pizza',
         '</a>',
     '</div>',
     '<div id="collapseOne" class="card-body show" data-parent="#accordion">',
-        '<input class="btn btn-primary" type="button" onclick="" name="submit" value="Edit" />',
-        '<input class="btn btn-primary" type="button" onclick="" name="submit" value="Remove" />',
+        '<input class="btn btn-primary editPizzaButton" ' + 'data-index-number='+ `${i} ` + 'type="button" name="submit" value="Edit" />',
+        '<input class="btn btn-primary deletePizzaButton" ' + 'data-index-number='+ `${i} ` + 'type="button" name="submit" value="Remove" />',
         '<p>',
             '<h5>Price:</h5>',
             '<p id=pizzaPrice' + `${i}` + '>$33.45</p>',    
@@ -202,9 +248,106 @@ let purchaseOrder = () => {
   sessionStorage.removeItem("currentOrder");
 }
 
-// remove pizza from current order
-let removePizza = () => {
 
+// remove pizza from current order
+//   i is the index of the pizza to remove from the array of pizzas (currentOrder)
+let deletePizza = (i) => {
+  if (typeof Storage !== "undefined") {
+    let currentOrder = JSON.parse(sessionStorage.getItem("currentOrder"));
+    currendOrder = currentOrder.splice(i, 1); // delete the ith pizza, shift everything else to the left.
+    console.log("current order is: ");
+    console.log(currentOrder);
+    sessionStorage.setItem("currentOrder", JSON.stringify(currentOrder));
+
+    //console.log($( "div" ).attr("accordion").css("data-index-number"));
+    //$('.div:not(.first)') 
+    $('div[data-index-number=' + `${i}` +']').remove();
+    /*if ($('div[data-index-number="spine_text"]').val().length > 22) {
+    }*/
+
+    /*$("div").filter(function() {
+      return  $(this).attr("data-index-number") > i;
+    });*/
+
+
+    // find each child of accordian (all children of pizza HTML object)
+    $("div .accordion").each(function() {
+      let val = $(this).attr('data-index-number');
+      if (val > i) {
+        console.log("val is");
+        console.log(val);
+        $(this).find('[data-index-number]').attr('data-index-number', val-1);
+        //$(this).find('[data-index-number]').attr('data-index-number', val-1);
+        $(this).attr('data-index-number', val-1); 
+      }
+    });
+    updateTotalPrice();
+
+    //updateOrderPrice(i);
+  
+    //.css("background-color", "#173F5F"); 
+    //sessionStorage.setItem("currentOrder", currentOrder);
+
+    // traverse every displayed HTML pizza who has a data-index-number > i, and decremente their index numbers by 1
+    //  (so that they have the correct index)
+    //   also change deletePizza(i) to deletePizza(i-1)
+
+
+    
+
+
+    ///window.location.href = "checkout.html";
+    //window.location.href="cart.html";
+
+  } else {
+      window.alert("Sorry, your browser does not support Web Storage...");
+  }
+}
+
+let buildHTMLPizzas = () => {
+  console.log("cart buildHTMLPizzas()");
+  //buildCart();
+  let currentOrder = JSON.parse(sessionStorage.getItem("currentOrder"));
+
+  let i = 0;
+  // traverse orders
+  let price = 0;
+  currentOrder.forEach((pizza) => {
+    console.log("pizza price:");
+    console.log(pizza.price);
+    price += parseFloat(pizza.price);
+    console.log(i);
+    console.log(pizza);
+    //console.log("hey");
+    buildPizza(i, pizza);
+    i = i+1;
+  });
+  $("#totalPrice").text(price.toString());  
+}
+
+let updateTotalPrice = () => {
+  console.log("cart updateTotalPrice()");
+  //buildCart();
+  let currentOrder = JSON.parse(sessionStorage.getItem("currentOrder"));
+
+  let i = 0;
+  // traverse orders
+  let price = 0;
+  currentOrder.forEach((pizza) => {
+    console.log("pizza price:");
+    console.log(pizza.price);
+    price += parseFloat(pizza.price);
+    console.log(i);
+    console.log(pizza);
+    //console.log("hey");
+    i = i+1;
+  });
+  $("#totalPrice").text(price.toString());
+}
+
+let updateOrderPrice = (i) => {
+  console.log("updateOrderPrice");
+  
 }
 
 let getPizzaValues = () => {

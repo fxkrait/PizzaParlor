@@ -5,7 +5,7 @@
    1. Name all students who this submission is for
     Gregory Hablutzel, Patrick Lauer
    2. Write about what you have or haven’t implemented.
-    We have implemented everything except the favorites feature, editing pizzas in the shopping cart, and removing pizzas from the shopping cart.
+    We have implemented everything except the favorites feature.
      1. If you implemented an extra feature, make a note of it here
    3. Add a link to your Github repository - add cfb3 as a collaborator
     https://github.com/greghab/PizzaParlor

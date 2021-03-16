@@ -1,0 +1,8 @@
+heroku pg:psql --app greghab-tcss460-w21
+
+\dt 
+\h 
+
+1. INSERT INTO Demo(Name, Message) VALUES ('first', 'hi');
+2. SELECT * FROM Demo;
+3. DELETE FROM Demo WHERE Name='first';

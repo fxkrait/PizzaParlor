@@ -9,9 +9,3 @@ CREATE TABLE Members (MemberID SERIAL PRIMARY KEY,
                       Verification INT DEFAULT 0
 );
 
-
-DROP TABLE IF EXISTS Demo;
-CREATE TABLE Demo (DemoID SERIAL PRIMARY KEY,
-                        Name VARCHAR(255) NOT NULL UNIQUE,
-                        Message VARCHAR(255)
-);

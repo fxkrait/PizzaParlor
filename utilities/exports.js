@@ -1,3 +1,5 @@
+const helpers = require('./utils.js')
+
 //Get the connection to Heroku Database
 let pool = require('./sql_conn.js')
 
@@ -27,5 +29,5 @@ function getHash(pw, salt) {
 }
 
 module.exports = { 
-    pool, getHash, sendEmail
+    pool, getHash, sendEmail, helpers
 }

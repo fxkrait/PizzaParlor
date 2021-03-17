@@ -91,6 +91,6 @@ app.use("/files", express.static('routes'))
 * let port; = process.env.PORT;
 * if(port == null) {port = 5000} 
 */ 
-app.listen(process.env.PORT || 5005, () => {
-    console.log("Server up and running on port: " + (process.env.PORT || 5005));
+app.listen(process.env.PORT || 5000, () => {
+    console.log("Server up and running on port: " + (process.env.PORT || 5000));
 });

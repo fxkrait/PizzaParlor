@@ -1,0 +1,101 @@
+<!DOCTYPE html> <!-- defines that this document is an HTML5 document -->
+<!-- Comment. It may span multiple lines -->
+
+<html> <!-- the root element of an HTML page -->
+ 
+    <head> <!-- contains meta information about the HTML page -->
+        <title>Display orders via cookie</title>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script type="text/JavaScript">
+
+        let returnToOrderPage = () => {
+            window.location.href = "./order.html"  
+        };
+
+        $(document).ready(async function()
+        {
+            $("#butt").click(placeOrder)
+            $("#logOutButton").click(deleteCookieAndLogout)
+
+            // if cookie not authorized.
+            if(document.cookie !== "authorized=true")
+            {
+                // go back
+                window.location.href = "../signin.html";
+            }
+            else
+            {
+             let response = await fetch("/orders",  {
+                 method: 'GET'
+            })
+            if (response.ok) 
+            { 
+                let json = await response.json();
+                console.log ("response is: ");
+                console.log(json);
+
+                let orderNo = 0;
+                json.orders.forEach(order => {
+                    console.log(order);
+                    let orderString = orderNo + ": size:" + order.my_size + ", color: " + order.my_color + ", option1: " + order.option1 + ", option2: " + order.option2 + ", option3: " + order.option3 
+                    console.log("orderString is: ")
+                    console.log(orderString)
+                    orderNo += 1;
+                    $("#ordersList").append('<li>' + orderString + ' </li>');
+
+                })
+            } else {
+                alert("HTTP-Error: " + response.status)
+                console.log(response.status)
+                let json = await response.json()
+                console.log(json)
+            }
+        }
+        })
+
+        async function deleteCookieAndLogout() {
+                let response = await fetch("/auth",  {
+                    method: 'DELETE'
+                })
+                if (response.ok) { // if HTTP-status is 200-299
+                    // get the response body (the method explained below)
+                    let json = await response.json()
+                    console.log(json)
+                    window.location.href = "../signin.html";
+
+
+                } else {
+                    alert("HTTP-Error: " + response.status)
+                    console.log(response.status)
+                    let json = await response.json()
+                    console.log(json)
+                }
+            }
+        function placeOrder()
+        {
+            window.location.href = "./order.html";
+        }
+        </script>
+        
+    </head>
+
+    <body> <!-- defines the document's body, and is a container for all the visible contents -->
+        <h1>Display orders via cookie</h1>
+
+
+        <ul id="ordersList">
+
+        </ul>
+
+        <div id="ordersDiv">
+
+        </div>
+
+            
+        <button type="button" id="returnToOrderButton" onclick=returnToOrderPage()>Return to Order Page</button>
+        <button type="button" id="logOutButton">Log Out</button>
+        
+    </body>
+
+</html>

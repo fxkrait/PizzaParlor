@@ -123,13 +123,31 @@ Login HTML Code:
 
             //alertify.success(`Login successful for ${email}`);
             alertify.success(`Login successful`);
-            getExistingUser.pass = btoa(pass);
             sessionStorage.setItem("loggedInUser", JSON.stringify(getExistingUser));
             console.log(getExistingUser);
             $("#userStatus").text('Hello, ' + `${getExistingUser.fName}`);
             resetFavorites();
             $('#userLoginButton').prop('disabled', true); 
             $('#userRegistrationButton').prop('disabled', true);
+
+              /*let b = $("<button>").text("Orders via Cookie")
+              b.click(() => getOrdersFromCookie())
+              let a = $("<a>").text("Order Link via Cookie")
+              a.attr("href", "/cookie_orders")
+
+              let b2 = $("<button>").text("Orders via Header")
+              b2.click(() => getOrdersFromHeader(json.token))
+
+              let del = $("<button>").text("Logout")
+              del.click(() => deleteCookie())
+
+              let placeOrderButton =  $("<button>").text("Place an Order via Cookies")
+              placeOrderButton.click(() => window.location.href = "lab8/order.html")
+
+              let viewOrdersButton =  $("<button>").text("View Orders")
+              viewOrdersButton.click(() => window.location.href = "lab8/orderDisplay.html")
+
+              $("#butt").after($("<br>"), b, a, $("<br>"), b2, $("<br>"), del, $("<br>"), placeOrderButton, $("<br>"), viewOrdersButton )*/
 
               //alertify.success("json.success");
               console.log("cookie: ")
@@ -146,51 +164,100 @@ Login HTML Code:
     window.alert("Sorry, your browser does not support Web Storage...");
   }
 }
+
+  /*
+  function login() {
+    // ensure storage is supported
+    if (typeof Storage !== "undefined") {
+      alertify.set('notifier','position', 'top-center');
+  
+      // update values
+      // could do:
+      //window.document.getElementById("perm").innerHTML = window.localStorage.getItem("first")
+      
+      // get the values the user entere      let email = $("#registerEmail").val(); 
+      let email = $("#loginEmail").val(); 
+      let pass =  $("#loginPass").val();
+  
+      // visually reset the fields again.
+      //document.getElementById("loginEmail").value = "";
+      //document.getElementById("loginPass").value = "";
+  
+      //document.getElementById("perm").innerHTML = localStorage.getItem("first");
+      //alert(email);
+  
+      let getRegisteredUsers = JSON.parse(sessionStorage.getItem("registeredUsers"));
+      if (getRegisteredUsers === null) {
+        getRegisteredUsers = {};
+      }
+  
+      let getExistingUser = getRegisteredUsers[email];
+      console.log("getExistingUser is:");
+      console.log(getExistingUser);
+  
+      //console.log("before if");
+      // if no registered user found
+      if (getExistingUser !== undefined && getExistingUser.pass === pass) {
+  
+          $("#loginEmail").val("")
+          $("#loginPass").val("")
+      
+        //console.log("suc");
+        //alertify.success(`Login successful for ${email}`);
+        alertify.success(`Login successful`);
+        sessionStorage.setItem("loggedInUser", JSON.stringify(getExistingUser));
+        console.log(getExistingUser);
+        $("#userStatus").text('Hello, ' + `${getExistingUser.fName}`);
+        resetFavorites();
+        $('#userLoginButton').prop('disabled', true); 
+        $('#userRegistrationButton').prop('disabled', true);
+  
+        //let email = $("#loginEmail").val(); 
+        //let pass =  $("#loginPass").val();
+      } else { // existing user registered with provided email
+        // print an error
+        //console.log("fail");
+        alertify.error(`Login unsuccessful! Invald Email/Password combination.`);
+      }
+ 
+  } else {
+      window.alert("Sorry, your browser does not support Web Storage...");
+    }
+  }*/
   
   
   // run on load
   $(document).ready(function(){
   
     alertify.set('notifier','position', 'top-center');
-    if (typeof Storage !== "undefined") {
-
-        console.log("init login");
-        // check if logged in
-        let loggedInUserString = sessionStorage.getItem("loggedInUser");
-        console.log("loggedInUserString");
-        console.log(loggedInUserString);
-        if (loggedInUserString !== "undefined") {
-          console.log("loggedInUserString !== undefined")
-        } else {
-          console.log("loggedInUserString == undefined");
-        }
-        //if (loggedInUserString !== "undefined") {
-        if (loggedInUserString !== "undefined" && loggedInUserString !== null && loggedInUserString !== "") {
-          //console.log("if!!");
-          //console.log("loggedInUserString !== 'undefined': " + (loggedInUserString !== "undefined"));
-          let loggedInUser = JSON.parse(loggedInUserString);
+  
+      if (typeof Storage !== "undefined") {
+  
+          console.log("init login");
+          // check if logged in
+          let loggedInUser = JSON.parse(sessionStorage.getItem("loggedInUser"));
           console.log(loggedInUser);
           //$("#userStatus").text('Hello, ' + `${loggedInUser.fName}`);
-
-          // if(loggedInUser != null) {// logged in
-
-          //     // console.log("inside");
-          //     // console.log("loggedInUser");
-          //     // console.log(loggedInUser);
-          //     // console.log("loggedInUser.fName");
-          //     // console.log(loggedInUser.get("fName"));
-          //     // console.log(loggedInUser.email);
-
-            $("#userStatus").text('Hello, ' + `${loggedInUser.fName}`);
-            $("#userStatus").css('color', 'red');
-            $('#userLoginButton').prop('disabled', true); 
-            $('#userRegistrationButton').prop('disabled', true);
-
-          // }
+  
+          if(loggedInUser != null) {// logged in
+  
+              /*console.log("inside");
+              console.log("loggedInUser");
+              console.log(loggedInUser);
+              console.log("loggedInUser.fName");
+              //console.log(loggedInUser.get("fName"));
+              console.log(loggedInUser.email);
+  */
+              $("#userStatus").text('Hello, ' + `${loggedInUser.fName}`);
+              $("#userStatus").css('color', 'red');
+              $('#userLoginButton').prop('disabled', true); 
+              $('#userRegistrationButton').prop('disabled', true);
+  
+          }
+        
+      } else {
+          window.alert("Sorry, your browser does not support Web Storage...");
         }
-    } else {
-        window.alert("Sorry, your browser does not support Web Storage...");
-     }
       
   
     });
@@ -273,42 +340,41 @@ Login HTML Code:
 
                   // get existing user from storage if available
                   //let getExistingUser = JSON.parse(sessionStorage.getItem(email));
-                  //registerUsers.pass = btoa(pass);
-                  // let registeredUsers = JSON.parse(sessionStorage.getItem("registeredUsers"));
-                  // if (registeredUsers === null) {
-                  //     registeredUsers = {};
-                  // }
-                  // console.log("registeredUser:")
-                  // console.log(registeredUser);
-                  // console.log("registereUders[email]")
-                  // console.log(registeredUsers[email]);
+                  let registeredUsers = JSON.parse(sessionStorage.getItem("registeredUsers"));
+                  if (registeredUsers === null) {
+                      registeredUsers = {};
+                  }
+                  console.log("registeredUser:")
+                  console.log(registeredUser);
+                  console.log("registereUders[email]")
+                  console.log(registeredUsers[email]);
             
                   // if no registered user found
-                //   if (registeredUsers[email] === undefined) {
-                //       console.log("if?");
-                //     // if (!error) {
-                //     //     console.log("no error?");
-                //     //     // visually reset the fields again.
-                //     //     $("#registerFirstName").val("")
-                //     //     $("#registerLastName").val("")
-                //     //     $("#registerEmail").val("")
-                //     //     $("#registerPass").val("")
-                //     //     $("#registerPass2").val("")
+                  if (registeredUsers[email] === undefined) {
+                      console.log("if?");
+                    if (!error) {
+                        console.log("no error?");
+                        // visually reset the fields again.
+                        $("#registerFirstName").val("")
+                        $("#registerLastName").val("")
+                        $("#registerEmail").val("")
+                        $("#registerPass").val("")
+                        $("#registerPass2").val("")
             
-                //     //     // then register the user
-                //     //     registeredUsers[email] = registeredUser;
-                //     //     console.log("registered users locally:");
-                //     //     console.log(registeredUsers)
-                //     //     sessionStorage.setItem("registeredUsers", JSON.stringify(registeredUsers));
-                //     //     //sessionStorage["registeredUsers"] = JSON.stringify(registeredUsers);
-                //     //     let getRegisteredUsers = JSON.parse(sessionStorage.getItem("registeredUsers"));
-                //     //     console.log("registeredUsers:");
-                //     //     console.log(getRegisteredUsers);
-                //     //     console.log(getRegisteredUsers[email]);
+                        // then register the user
+                        registeredUsers[email] = registeredUser;
+                        console.log("registered users locally:");
+                        console.log(registeredUsers)
+                        sessionStorage.setItem("registeredUsers", JSON.stringify(registeredUsers));
+                        //sessionStorage["registeredUsers"] = JSON.stringify(registeredUsers);
+                        let getRegisteredUsers = JSON.parse(sessionStorage.getItem("registeredUsers"));
+                        console.log("registeredUsers:");
+                        console.log(getRegisteredUsers);
+                        console.log(getRegisteredUsers[email]);
             
-                //     //     //alertify.success(`Registration successful for ${email}`);
-                //     // }
-                // }
+                        alertify.success(`Registration successful for ${email}`);
+                    }
+                }
               }
 
             } else {
@@ -323,6 +389,101 @@ Login HTML Code:
       window.alert("Sorry, your browser does not support Web Storage...");
     }
   }
+    
+  /*
+  function register() {
+      // ensure storage is supported
+      if (typeof Storage !== "undefined") {
+        alertify.set('notifier','position', 'top-center');
+  
+  
+        // get the values the user entered in the email and password fields
+        let fName = $("#registerFirstName").val();
+        let lName = $("#registerLastName").val();
+        let email = $("#registerEmail").val(); 
+        let pass =  $("#registerPass").val();
+        let pass2 =  $("#registerPass2").val();
+  
+  
+  
+        if (fName === "" || lName === "" || email === "" || pass === "" || pass2 === ""){
+            alertify.error("Please fill out all fields to register");
+  
+        } 
+        
+        else {
+  
+  
+          let error = false;
+          if (pass != pass2) {
+              alertify.error("Passwords do not match!");
+              error = true;
+          } else {
+            let validPassword = validatePassword(pass);
+            if (!validPassword) {
+              error = true;
+            }
+        }
+  
+          if(!validateEmail(email)) {
+              alertify.error("email is not in a valid format!");
+              error = true;
+          }
+  
+         //alertify.success(JSON.stringify(validateEmail(email)));
+         console.log(validateEmail(email));
+  
+   
+  
+        // construct JSON object for storage
+        var registeredUser = {email, pass, fName, lName};
+        // get existing user from storage if available
+        //let getExistingUser = JSON.parse(sessionStorage.getItem(email));
+        let registeredUsers = JSON.parse(sessionStorage.getItem("registeredUsers"));
+        if (registeredUsers === null) {
+            registeredUsers = {};
+        }
+        console.log("registeredUser:")
+        console.log(registeredUser);
+        console.log("registereUders[email]")
+        console.log(registeredUsers[email]);
+  
+        // if no registered user found
+        if (registeredUsers[email] === undefined) {
+            console.log("if?");
+          if (!error) {
+              console.log("no error?");
+              // visually reset the fields again.
+              $("#registerFirstName").val("")
+              $("#registerLastName").val("")
+              $("#registerEmail").val("")
+              $("#registerPass").val("")
+              $("#registerPass2").val("")
+  
+              // then register the user
+              registeredUsers[email] = registeredUser;
+              console.log("registered users locally:");
+              console.log(registeredUsers)
+              sessionStorage.setItem("registeredUsers", JSON.stringify(registeredUsers));
+              //sessionStorage["registeredUsers"] = JSON.stringify(registeredUsers);
+              let getRegisteredUsers = JSON.parse(sessionStorage.getItem("registeredUsers"));
+              console.log("registeredUsers:");
+              console.log(getRegisteredUsers);
+              console.log(getRegisteredUsers[email]);
+  
+              alertify.success(`Registration successful for ${email}`);
+          }
+  
+        } else { // existing user registered with provided email
+          // print an error
+          alertify.error(`There is already a user registered with the email: ${email}`);
+        }
+      }
+    } else {
+        window.alert("Sorry, your browser does not support Web Storage...");
+      }
+    }
+    */
     
     function validateEmail(email) {
       let res = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;

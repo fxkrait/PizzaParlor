@@ -4,7 +4,7 @@
   "description": "TCSS 460 Site/Serevice",
   "main": "index.js",
   "scripts": {
-    "test": "index.js",
+    "test": "node index.js",
     "watch": "nodemon index.js"
   },
   "engines": {

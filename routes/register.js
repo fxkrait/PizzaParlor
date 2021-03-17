@@ -43,17 +43,68 @@ const router = express.Router()
  * @apiError (400: Email exists) {String} message "Email exists"
  * 
  */ 
-router.post('/', (request, response) => {
+router.post('/', (request, response, next) => { // check everything is provided
 
     //Retrieve data from query params
     const first = request.body.first
     const last = request.body.last
-    const username = isProvided(request.body.username) ?  request.body.username : request.body.email
     const email = request.body.email
     const password = request.body.password
     //Verify that the caller supplied all the parameters
     //In js, empty strings or null values evaluate to false
-    if(isProvided(first) && isProvided(last) && isProvided(username) && isProvided(email) && isProvided(password)) {
+    if(isProvided(first) && isProvided(last) && isProvided(email) && isProvided(password)) {
+        next()
+    } else {
+        response.status(400).send({
+            message: "Missing required information"
+        })
+    }
+}, (request, response, next) => { // password requirement middleware
+
+    const password = request.body.password
+
+
+    // https://stackoverflow.com/questions/1559751/regex-to-make-sure-that-the-string-contains-at-least-one-lower-case-char-upper
+    let capitalsRegex = new RegExp("(?=.*[A-Z])");    // use positive look ahead to see if at least one upper case letter exists
+    let digitRegex = new RegExp("[0-9]");           // use positive look ahead to see if at least one digit exists
+
+    let validPassword = true; 
+    let message = "";
+
+    if (password == undefined || password == null || password == "") {
+        message = "password should not be blank!";
+        validPassword = false;
+    } else if (password.length < 8) {
+        message = "password should be atleast 8 characters!";
+        validPassword = false;
+    } else if (!capitalsRegex.test(password)) {
+        message = "Your password needs a capital letter!";
+        validPassword = false;
+    } else if (!digitRegex.test(password)) {
+        message = "Your password needs atleast one number!";
+        validPassword = false;
+    }
+
+    if (!validPassword) {
+        //             message: "Missing required information"
+        response.status(400).send({
+            message: message
+        })
+    } else {
+        console.log("else");
+        next();
+    }
+
+},  (request, response) => {
+
+    //Retrieve data from query params
+    const first = request.body.first
+    const last = request.body.last
+    const email = request.body.email
+    const password = request.body.password
+    //Verify that the caller supplied all the parameters
+    //In js, empty strings or null values evaluate to false
+    if(isProvided(first) && isProvided(last) && isProvided(email) && isProvided(password)) {
         //We're storing salted hashes to make our application more secure
         //If you're interested as to what that is, and why we should use it
         //watch this youtube video: https://www.youtube.com/watch?v=8ZtInClXe1Q
@@ -62,8 +113,8 @@ router.post('/', (request, response) => {
         
         //We're using placeholders ($1, $2, $3) in the SQL query string to avoid SQL Injection
         //If you want to read more: https://stackoverflow.com/a/8265319
-        let theQuery = "INSERT INTO MEMBERS(FirstName, LastName, Username, Email, Password, Salt) VALUES ($1, $2, $3, $4, $5, $6) RETURNING Email"
-        let values = [first, last, username, email, salted_hash, salt]
+        let theQuery = "INSERT INTO MEMBERS(FirstName, LastName, Email, Password, Salt) VALUES ($1, $2, $3, $4, $5) RETURNING Email"
+        let values = [first, last, email, salted_hash, salt]
         pool.query(theQuery, values)
             .then(result => {
                 //We successfully added the user!
@@ -75,11 +126,7 @@ router.post('/', (request, response) => {
             .catch((error) => {
                 //log the error
                 // console.log(error)
-                if (error.constraint == "members_username_key") {
-                    response.status(400).send({
-                        message: "Username exists"
-                    })
-                } else if (error.constraint == "members_email_key") {
+                if (error.constraint == "members_email_key") {
                     response.status(400).send({
                         message: "Email exists"
                     })

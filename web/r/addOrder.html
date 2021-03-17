@@ -1,0 +1,139 @@
+<!DOCTYPE html> <!-- defines that this document is an HTML5 document -->
+<!-- Comment. It may span multiple lines -->
+
+<html> <!-- the root element of an HTML page -->
+ 
+    <head> <!-- contains meta information about the HTML page -->
+        <title>Place an Order via Cookies</title>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+        <link rel="stylesheet" href="https://bootswatch.com/4/superhero/bootstrap.min.css" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" />
+        
+
+
+        <script type="text/JavaScript">
+
+        $(document).ready(async function(){
+
+        console.log("cookie is: ");
+        console.log(document.cookie);
+
+        console.log("cookie.authorized is: ");
+        console.log(document.cookie.authorized);
+
+        console.log("document.cookie === 'authorized=true'?????");
+        console.log("authorized=true" === document.cookie);
+
+
+        // if cookie not authorized.
+        if(document.cookie !== "authorized=true")
+        {
+            alertify.set('notifier','position', 'top-center');
+            alertify.error("You are not credentialed properly! Redirectering you in 2 seconds!!!")
+            await new Promise(r => setTimeout(r, 2000));
+
+            console.log("here");
+            // go back
+            window.location.href = "../index.html";
+        }
+        })
+
+        async function placeOrderViaCookies() 
+        {
+
+            let memberidVal = $("#idInput").val();
+            let orderVal = $("#orderInput").val();
+
+            console.log("memberidVal is: ");
+            console.log(memberidVal);
+
+            console.log("orderVal is: ");
+            console.log(orderVal);
+
+            //let orderValStringified = JSON.stringify(orderVal);
+
+            //console.log("orderValStringified is: ");
+            //console.log(orderValStringified);
+
+
+            let response = await fetch("/pizza_orders",  {
+                    method: 'POST',
+                    headers: 
+                    {
+                        'Content-Type' : 'application/json;charset=utf-8'
+                    },
+                    body: JSON.stringify(
+                    {
+                        "memberid":memberidVal,
+                        "order":orderVal
+                    })
+            })
+            if (response.ok) 
+            {
+                window.location.href = "./orderDisplay.html";
+            } 
+            else 
+            {
+                alert("HTTP-Error: " + response.status);            
+            }
+        }
+        // deletes browser cookie, and logs out.
+        async function deleteCookieAndLogout() {
+            let response = await fetch("/auth",  {
+                method: 'DELETE'
+            })
+            if (response.ok) { // if HTTP-status is 200-299
+                // get the response body (the method explained below)
+                let json = await response.json()
+                console.log(json)
+                window.location.href = "./addOrder.html";
+            } else {
+                alert("HTTP-Error: " + response.status)
+                console.log(response.status)
+                let json = await response.json()
+                console.log(json)
+            }
+        }
+            
+        /*$(document).ready(function(){
+            var temp = document.cookie.split('=');
+            if(temp[1] != "true")
+            {
+                window.location.href = "../signin.html";
+            }
+        })*/
+        $(document).ready(function(){
+            $("#placeOrderButton").click(placeOrderViaCookies)
+        })
+        $(document).ready(function(){
+            $("#logOutButton").click(deleteCookieAndLogout)
+        })
+
+        </script>
+        
+    </head>
+
+    <body>
+        <h1>Place an Order via Cookies</h1>
+
+        <div id="inputFields">
+            <label for="idInput">MemberId: </label>
+            <input type="number" id="idInput" value="1"/><br />
+            <label for="orderInput">Order JSON String: </label>
+            <input type="text" id="orderInput" value='{"name":"Pizza","quantity":"1","size":"Small 10\"","crust":"Deep Dish (+2.95)","sauce":"None","cheese":"None","toppingsMeatList":[],"toppingsNonMeatsList":[],"price":"14.94"}'/><br />
+        </div>
+
+
+     
+
+
+
+        <button type="button" id="placeOrderButton">Place an Order via Cookies</button>
+        <button type="button" id="logOutButton">Log Out</button>
+        
+    </body>
+
+</html>

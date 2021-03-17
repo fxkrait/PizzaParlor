@@ -77,13 +77,30 @@ Login HTML Code:
   sessionStorage.setItem("favorites", JSON.stringify(favorites));
   }
   
-  function signOut() {
-      sessionStorage.removeItem("loggedInUser");
-      sessionStorage.removeItem("favorites");
-      sessionStorage.removeItem("currentOrder");
-      $("#userStatus").text('Anonymous User');
-      $('#userLoginButton').prop('disabled', false); 
-      $('#userRegistrationButton').prop('disabled', false);
+  async function signOut() {
+    let response = await fetch("/auth",  {
+        method: 'DELETE'
+    })
+    if (response.ok) { // if HTTP-status is 200-299
+        // get the response body (the method explained below)
+        let json = await response.json()
+        console.log(json)
+
+        console.log("successfully signed out");
+        sessionStorage.removeItem("loggedInUser");
+        sessionStorage.removeItem("favorites");
+        sessionStorage.removeItem("currentOrder");
+        $("#userStatus").text('Anonymous User');
+        $('#userLoginButton').prop('disabled', false); 
+        $('#userRegistrationButton').prop('disabled', false);
+    } else {
+        alert("HTTP-Error: " + response.status)
+        console.log(response.status)
+        let json = await response.json()
+        console.log(json)
+    }
+
+    
   }
 
 
@@ -95,15 +112,16 @@ Login HTML Code:
       alertify.set('notifier','position', 'top-center');
       let email = $("#loginEmail").val(); 
       let pass =  $("#loginPass").val();
+      console.log("pass is: " + pass);
 
-      let getRegisteredUsers = JSON.parse(sessionStorage.getItem("registeredUsers"));
+      /*let getRegisteredUsers = JSON.parse(sessionStorage.getItem("registeredUsers"));
       if (getRegisteredUsers === null) {
         getRegisteredUsers = {};
-      }
+      }*/
   
-      let getExistingUser = getRegisteredUsers[email];
-      console.log("getExistingUser is:");
-      console.log(getExistingUser);
+      //let getExistingUser = getRegisteredUsers[email];
+      //console.log("getExistingUser is:");
+      //console.log(getExistingUser);
 
       let encoded = window.btoa(email + ':' + pass)
       console.log(encoded)
@@ -117,16 +135,26 @@ Login HTML Code:
       if (response.ok) { // if HTTP-status is 200-299
           // get the response body (the method explained below)
           let json = await response.json()
+          console.log("login response is: ");
           console.log(json)
+          console.log("member id is: ")
+          console.log(json.memberid);
 
           if (json.success) {
+            //console.log(pass)
+            //console.log(getRegisteredUsers)
 
+            let loggedInUserObject = {email, pass:btoa(pass), memberid: json.memberid};
             //alertify.success(`Login successful for ${email}`);
             alertify.success(`Login successful`);
-            getExistingUser.pass = btoa(pass);
-            sessionStorage.setItem("loggedInUser", JSON.stringify(getExistingUser));
-            console.log(getExistingUser);
-            $("#userStatus").text('Hello, ' + `${getExistingUser.fName}`);
+            //getExistingUser.pass = btoa(pass);
+            //getExistingUser.memberid = json.memberid;
+            //sessionStorage.setItem("loggedInUser", JSON.stringify(getExistingUser));
+            sessionStorage.setItem("loggedInUser", JSON.stringify(loggedInUserObject));
+            //console.log(getExistingUser);
+            //$("#userStatus").text('Hello, ' + `${getExistingUser.fName}`);
+            $("#userStatus").text('Hello, ' + `${email}`);
+
             resetFavorites();
             $('#userLoginButton').prop('disabled', true); 
             $('#userRegistrationButton').prop('disabled', true);
@@ -168,8 +196,8 @@ Login HTML Code:
         if (loggedInUserString !== "undefined" && loggedInUserString !== null && loggedInUserString !== "") {
           //console.log("if!!");
           //console.log("loggedInUserString !== 'undefined': " + (loggedInUserString !== "undefined"));
-          let loggedInUser = JSON.parse(loggedInUserString);
-          console.log(loggedInUser);
+          //let loggedInUser = JSON.parse(loggedInUserString);
+          //console.log(loggedInUser);
           //$("#userStatus").text('Hello, ' + `${loggedInUser.fName}`);
 
           // if(loggedInUser != null) {// logged in
@@ -181,7 +209,11 @@ Login HTML Code:
           //     // console.log(loggedInUser.get("fName"));
           //     // console.log(loggedInUser.email);
 
-            $("#userStatus").text('Hello, ' + `${loggedInUser.fName}`);
+          let loggedInUserObject = JSON.parse(loggedInUserString);
+
+            //$("#userStatus").text('Hello, ' + `${loggedInUser.fName}`);
+            //$("#userStatus").text('Hello, ' + `${loggedInUser.email}`);
+            $("#userStatus").text('Hello, ' + `${loggedInUserObject.email}`);
             $("#userStatus").css('color', 'red');
             $('#userLoginButton').prop('disabled', true); 
             $('#userRegistrationButton').prop('disabled', true);
@@ -272,42 +304,42 @@ Login HTML Code:
                   // local storage:
 
                   // get existing user from storage if available
-                  //let getExistingUser = JSON.parse(sessionStorage.getItem(email));
-                  //registerUsers.pass = btoa(pass);
-                  // let registeredUsers = JSON.parse(sessionStorage.getItem("registeredUsers"));
-                  // if (registeredUsers === null) {
-                  //     registeredUsers = {};
-                  // }
-                  // console.log("registeredUser:")
-                  // console.log(registeredUser);
-                  // console.log("registereUders[email]")
-                  // console.log(registeredUsers[email]);
+                //   let getExistingUser = JSON.parse(sessionStorage.getItem(email));
+                //   registerUsers.pass = btoa(pass);
+                //   let registeredUsers = JSON.parse(sessionStorage.getItem("registeredUsers"));
+                //   if (registeredUsers === null) {
+                //       registeredUsers = {};
+                //   }
+                //   console.log("registeredUser:")
+                //   console.log(registeredUser);
+                //   console.log("registereUders[email]")
+                //   console.log(registeredUsers[email]);
             
-                  // if no registered user found
+                //   // if no registered user found
                 //   if (registeredUsers[email] === undefined) {
                 //       console.log("if?");
-                //     // if (!error) {
-                //     //     console.log("no error?");
-                //     //     // visually reset the fields again.
-                //     //     $("#registerFirstName").val("")
-                //     //     $("#registerLastName").val("")
-                //     //     $("#registerEmail").val("")
-                //     //     $("#registerPass").val("")
-                //     //     $("#registerPass2").val("")
+                //     if (!error) {
+                //         console.log("no error?");
+                //         // visually reset the fields again.
+                //         $("#registerFirstName").val("")
+                //         $("#registerLastName").val("")
+                //         $("#registerEmail").val("")
+                //         $("#registerPass").val("")
+                //         $("#registerPass2").val("")
             
-                //     //     // then register the user
-                //     //     registeredUsers[email] = registeredUser;
-                //     //     console.log("registered users locally:");
-                //     //     console.log(registeredUsers)
-                //     //     sessionStorage.setItem("registeredUsers", JSON.stringify(registeredUsers));
-                //     //     //sessionStorage["registeredUsers"] = JSON.stringify(registeredUsers);
-                //     //     let getRegisteredUsers = JSON.parse(sessionStorage.getItem("registeredUsers"));
-                //     //     console.log("registeredUsers:");
-                //     //     console.log(getRegisteredUsers);
-                //     //     console.log(getRegisteredUsers[email]);
+                //         // then register the user
+                //         registeredUsers[email] = registeredUser;
+                //         console.log("registered users locally:");
+                //         console.log(registeredUsers)
+                //         sessionStorage.setItem("registeredUsers", JSON.stringify(registeredUsers));
+                //         //sessionStorage["registeredUsers"] = JSON.stringify(registeredUsers);
+                //         let getRegisteredUsers = JSON.parse(sessionStorage.getItem("registeredUsers"));
+                //         console.log("registeredUsers:");
+                //         console.log(getRegisteredUsers);
+                //         console.log(getRegisteredUsers[email]);
             
-                //     //     //alertify.success(`Registration successful for ${email}`);
-                //     // }
+                //         //alertify.success(`Registration successful for ${email}`);
+                //     }
                 // }
               }
 

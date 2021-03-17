@@ -345,6 +345,7 @@ let updatePizza = () => {
 
         pizza.price = price;
         console.log(pizza);
+        console.log(JSON.stringify(pizza));
         return pizza;
     
         /*var testUser = {pass:'pass', fName: 'greg', lName:'hab'};

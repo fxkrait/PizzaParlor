@@ -52,6 +52,8 @@ app.use('/auth', require('./routes/register.js'))
 //app.use('/orders', middleware.checkToken, require('./routes/demo_orders.js'))
 app.use('/orders', middleware.checkTokenCookies, require('./routes/demo_orders.js'))
 
+app.use('/pizza_orders', middleware.checkTokenCookies, require('./routes/pizza_orders.js'))
+
 
 app.use('/cookie_orders', middleware.checkTokenCookies, require('./routes/demo_orders_cookies.js'))
 

@@ -23,14 +23,13 @@ const router = express.Router()
  * @apiParam {String} last a users last name
  * @apiParam {String} email a users email *unique
  * @apiParam {String} password a users password
- * @apiParam {String} [username] a username *unique, if none provided, email will be used
  * 
  * @apiParamExample {json} Request-Body-Example:
  *  {
  *      "first":"Charles",
  *      "last":"Bryan",
  *      "email":"cfb3@fake.email",
- *      "password":"test12345"
+ *      "password":"testpasswordA12345"
  *  }
  * 
  * @apiSuccess (Success 201) {boolean} success true when the name is inserted
@@ -42,7 +41,14 @@ const router = express.Router()
  * 
  * @apiError (400: Email exists) {String} message "Email exists"
  * 
- */ 
+ * @apiError (400: password length less than 8 characters) {String} message "password should be atleast 8 characters!"
+ * 
+ * @apiError (400: Password doesn't have a capital letter) {String} message "Your password needs a capital letter!"
+ * 
+ * @apiError (400: Password missing a number) {String} message "Your password needs atleast one number!"
+ * 
+ * 
+*/ 
 router.post('/', (request, response, next) => { // check everything is provided
 
     //Retrieve data from query params
@@ -71,10 +77,10 @@ router.post('/', (request, response, next) => { // check everything is provided
     let validPassword = true; 
     let message = "";
 
-    if (password == undefined || password == null || password == "") {
+    /*if (password == undefined || password == null || password == "") {
         message = "password should not be blank!";
         validPassword = false;
-    } else if (password.length < 8) {
+    } */ if (password.length < 8) {
         message = "password should be atleast 8 characters!";
         validPassword = false;
     } else if (!capitalsRegex.test(password)) {
@@ -102,6 +108,7 @@ router.post('/', (request, response, next) => { // check everything is provided
     const last = request.body.last
     const email = request.body.email
     const password = request.body.password
+    console.log("email is: " + email)
     //Verify that the caller supplied all the parameters
     //In js, empty strings or null values evaluate to false
     if(isProvided(first) && isProvided(last) && isProvided(email) && isProvided(password)) {

@@ -259,25 +259,11 @@ let purchaseOrder = async () => {
   let loggedInUserString = sessionStorage.getItem("loggedInUser");
   let loggedInUserObject = JSON.parse(loggedInUserString);
 
+  let memberid = null;
 
-
-  let response = await fetch("/pizza_orders",  {
-    method: 'POST',
-    headers: 
-    {
-        'Content-Type' : 'application/json;charset=utf-8'
-    },
-    body: JSON.stringify(
-    {
-        //"size":$("#sizeInput").val(),
-       "memberid":loggedInUserObject.memberid,
-       "order": currentOrder
-    })
-  })
-  if (response.ok) 
+  if(loggedInUserObject == undefined || loggedInUserObject == null)
   {
-    //window.location.href = "./orderDisplay.html";
-     //$("div").removeClass("accordion");
+    memberid = 1; // anonymous member id  
     $( "div" ).remove(".accordion");
     $( "div" ).remove(".price");
     $( "div" ).remove(".fields");
@@ -291,11 +277,47 @@ let purchaseOrder = async () => {
     if(currentOrder === null || currentOrder.length === 0) {
       noPizzasInCartScreen();
     }
-  } 
-  else 
-  {
-    alert("HTTP-Error: " + response.status);            
+  } else {
+    memberid = loggedInUserObject.memberid;
+    let response = await fetch("/pizza_orders",  {
+      method: 'POST',
+      headers: 
+      {
+          'Content-Type' : 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify(
+      {
+          //"size":$("#sizeInput").val(),
+         "memberid":memberid,
+         "order": currentOrder
+      })
+    })
+    if (response.ok) 
+    {
+      //window.location.href = "./orderDisplay.html";
+       //$("div").removeClass("accordion");
+      $( "div" ).remove(".accordion");
+      $( "div" ).remove(".price");
+      $( "div" ).remove(".fields");
+      $( "div" ).remove(".info");
+  
+      alertify.set('notifier','position', 'top-center');
+      alertify.success("Thank you for your order!");
+      //$("div#accordian").remove();
+      sessionStorage.removeItem("currentOrder");
+      let currentOrder = JSON.parse(sessionStorage.getItem("currentOrder"));
+      if(currentOrder === null || currentOrder.length === 0) {
+        noPizzasInCartScreen();
+      }
+    } 
+    else 
+    {
+      alert("HTTP-Error: " + response.status);            
+    }
   }
+
+
+
   
  
 }

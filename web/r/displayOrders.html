@@ -1,0 +1,149 @@
+<!DOCTYPE html> <!-- defines that this document is an HTML5 document -->
+<!-- Comment. It may span multiple lines -->
+
+<html> <!-- the root element of an HTML page -->
+ 
+    <head> <!-- contains meta information about the HTML page -->
+        <title>Display orders </title>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+        <link rel="stylesheet" href="https://bootswatch.com/4/superhero/bootstrap.min.css" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" />
+        <link rel="stylesheet" href="../styles/darkreader.css" />
+
+        <script type="text/JavaScript">
+
+
+        $(document).ready(async function()
+        {
+
+            $("#butt").click(placeOrder)
+            $("#logOutButton").click(deleteCookieAndLogout)
+
+            // if cookie not authorized.
+            if(document.cookie !== "authorized=true")
+            {
+                alertify.set('notifier','position', 'top-center');
+                alertify.error("You are not credentialed properly! Redirectering you in 2 seconds!!!")
+                await new Promise(r => setTimeout(r, 2000));
+
+                console.log("here");
+                // go back
+                window.location.href = "../index.html";
+                // go back
+                //window.location.href = "../signin.html";
+            }
+            else
+            {
+                let loggedInUserString = sessionStorage.getItem("loggedInUser");
+                let loggedInUserObject = JSON.parse(loggedInUserString);
+                $('p').children('span').text(loggedInUserObject.memberid);
+
+                let response = await fetch("/pizza_orders",  {
+                    method: 'GET',
+                    headers: 
+                    {
+                        'Content-Type' : 'application/json;charset=utf-8'
+                    }
+                })
+                if (response.ok) 
+                { 
+                    let json = await response.json();
+                    console.log ("response is: ");
+                    console.log(json);
+
+                    let orderNo = 0;
+                    json.orders.forEach(order => {
+                        console.log(order);
+                        let orderString = "orderid:" + order.orderid + ", order: " + order.orderdetails;
+                        console.log("orderString is: ")
+                        console.log(orderString)
+                        orderNo += 1;
+                        $("#ordersList").append('<li>' + orderString + ' </li>');
+                    })
+                } else {
+                    //alert("HTTP-Error: " + response.status)
+                    alertify.set('notifier','position', 'top-center');
+                    alertify.error("you have no orders!");
+                    console.log(response.status)
+                    //let json = await response.json()
+                    //console.log(json)
+                }
+            }
+        })
+
+        async function deleteCookieAndLogout() {
+                let response = await fetch("/auth",  {
+                    method: 'DELETE'
+                })
+                if (response.ok) { // if HTTP-status is 200-299
+                    // get the response body (the method explained below)
+                    sessionStorage.removeItem("loggedInUser");
+                    sessionStorage.removeItem("favorites");
+                    sessionStorage.removeItem("currentOrder");
+                    let json = await response.json()
+                    console.log(json)
+                    window.location.href = "../signin.html";
+
+
+                } else {
+                    alert("HTTP-Error: " + response.status)
+                    console.log(response.status)
+                    let json = await response.json()
+                    console.log(json)
+                }
+            }
+        function placeOrder()
+        {
+            window.location.href = "./order.html";
+        }
+
+        let goToAddOrderPage = () => {
+            window.location.href = "./addOrder.html"  
+        };
+        let goToDeleteOrderPage = () => {
+            window.location.href = "./deleteOrders.html"  
+        };
+        let goToDisplayOrdersPage = () => {
+            window.location.href = "./displayOrders.html"  
+        };
+        let goToLoadOrderPage = () => {
+            window.location.href = "./loadOrder.html"  
+        };
+        let goToTAOTPage = () => {
+            window.location.href = "../index.html"  
+        };
+        </script>
+        
+    </head>
+
+    <body> <!-- defines the document's body, and is a container for all the visible contents -->
+        <h1>Display orders</h1>
+
+        <div id="inputFields">
+            <p>Your current memberid is: <span></span></p>
+        </div>
+
+
+        <ul id="ordersList">
+
+        </ul>
+
+        <div id="ordersDiv">
+
+        </div>
+
+        <button type="button" id="logOutButton">Log Out</button>
+
+        <h3>links:</h3>
+        <button type="button" id="goToAddOrderButton" onclick=goToAddOrderPage()>Go to Add Order Page</button>
+        <button type="button" id="goToDeleteOrderButton" onclick=goToDeleteOrderPage()>Go to Delete Orders Page</button>
+        <button type="button" id="goToDisplayOrderButton" onclick=goToDisplayOrdersPage()>Go to Display Orders Page</button>
+        <button type="button" id="goToTAOTButton" onclick=goToTAOTPage()>Go to The Aroma Of Tacoma Home Page</button>
+
+        
+    </body>
+
+</html>

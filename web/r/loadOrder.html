@@ -4,7 +4,7 @@
 <html> <!-- the root element of an HTML page -->
  
     <head> <!-- contains meta information about the HTML page -->
-        <title>Add Previous Order</title>
+        <title>Load Past Order into Cart </title>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
@@ -13,60 +13,66 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" />
         <link rel="stylesheet" href="../styles/darkreader.css" />
 
-
-
         <script type="text/JavaScript">
 
         $(document).ready(async function(){
 
-        console.log("cookie is: ");
-        console.log(document.cookie);
+            console.log("cookie is: ");
+            console.log(document.cookie);
 
-        console.log("cookie.authorized is: ");
-        console.log(document.cookie.authorized);
+            console.log("cookie.authorized is: ");
+            console.log(document.cookie.authorized);
 
-        console.log("document.cookie === 'authorized=true'?????");
-        console.log("authorized=true" === document.cookie);
+            console.log("document.cookie === 'authorized=true'?????");
+            console.log("authorized=true" === document.cookie);
 
 
-        // if cookie not authorized.
-        if(document.cookie !== "authorized=true")
-        {
-            alertify.set('notifier','position', 'top-center');
-            alertify.error("You are not credentialed properly! Redirectering you in 2 seconds!!!")
-            await new Promise(r => setTimeout(r, 2000));
+            // if cookie not authorized.
+            if(document.cookie !== "authorized=true")
+            {
+                alertify.set('notifier','position', 'top-center');
+                alertify.error("You are not credentialed properly! Redirectering you in 2 seconds!!!")
+                await new Promise(r => setTimeout(r, 2000));
 
-            console.log("here");
-            // go back
-            window.location.href = "../index.html";
-        } else {
-            let loggedInUserString = sessionStorage.getItem("loggedInUser");
-            let loggedInUserObject = JSON.parse(loggedInUserString);
-            $('p').children('span').text(loggedInUserObject.memberid);
-        }
+                console.log("here");
+                // go back
+                window.location.href = "../index.html";
+            } else {
+                let loggedInUserString = sessionStorage.getItem("loggedInUser");
+                let loggedInUserObject = JSON.parse(loggedInUserString);
+                $('p').children('span').text(loggedInUserObject.memberid);
+            }
         })
 
-        async function placeOrderViaCookies() 
+        // deletes browser cookie, and logs out.
+        async function deleteCookieAndLogout() {
+            let response = await fetch("/auth",  {
+                method: 'DELETE'
+            })
+            if (response.ok) { // if HTTP-status is 200-299
+                // get the response body (the method explained below)
+                let json = await response.json()
+                console.log(json)
+                window.location.href = "../signin.html";
+            } else {
+                alert("HTTP-Error: " + response.status)
+                console.log(response.status)
+                let json = await response.json()
+                console.log(json)
+            }
+        }
+
+        async function loadOrderViaCookies() 
         {
+            console.log("loadOrderViaCookies")
             if(document.cookie === "authorized=true")
             {
+                console.log("inside");
 
                 let loggedInUserString = sessionStorage.getItem("loggedInUser");
                 let loggedInUserObject = JSON.parse(loggedInUserString);
-                let memberidVal = loggedInUserObject.memberid;
-
                 let orderVal = $("#orderInput").val();
 
-                console.log("memberidVal is: ");
-                console.log(memberidVal);
-
-                console.log("orderVal is: ");
-                console.log(orderVal);
-
-                //let orderValStringified = JSON.stringify(orderVal);
-
-                //console.log("orderValStringified is: ");
-                //console.log(orderValStringified);
 
                 let response = await fetch("/pizza_orders",  {
                     method: 'GET',
@@ -81,7 +87,7 @@
                     console.log ("response is: ");
                     console.log(json);
                     alertify.set('notifier','position', 'top-center');
-                    //alertify.success("success");
+                    alertify.success("success");
 
                     let orderToLoad = null;
 
@@ -96,33 +102,7 @@
                         alertify.error("Invalid order id!");
 
                     } else {
-                        
-
-                        let response = await fetch("/pizza_orders_add_previous",  {
-                            method: 'POST',
-                            headers: 
-                            {
-                                'Content-Type' : 'application/json;charset=utf-8'
-                            },
-                            body: JSON.stringify(
-                            {
-                                memberid:memberidVal,
-                                orderid:orderToLoad.orderid
-                            })
-                        })
-                        if (response.ok) 
-                        {
-                            alertify.set('notifier','position', 'top-center');
-                            alertify.success("order sent successfully!");
-                            //window.location.href = "./orderDisplay.html";
-                        } 
-                        else 
-                        {
-                            alert("HTTP-Error: " + response.status);            
-                        }
-
-
-                        //sessionStorage.setItem("currentOrder", orderToLoad);
+                        sessionStorage.setItem("currentOrder", orderToLoad);
                     }
                     
                 } else {
@@ -133,9 +113,6 @@
                     //let json = await response.json()
                     //console.log(json)
                 }
-
-
-        
             }
         }
         // deletes browser cookie, and logs out.
@@ -150,7 +127,7 @@
                 sessionStorage.removeItem("currentOrder");
                 let json = await response.json()
                 console.log(json)
-                window.location.href = "./addOrder.html";
+                window.location.href = "../signin.html";
             } else {
                 alert("HTTP-Error: " + response.status)
                 console.log(response.status)
@@ -167,7 +144,7 @@
             }
         })*/
         $(document).ready(function(){
-            $("#placeOrderButton").click(placeOrderViaCookies)
+            $("#loadOrderButton").click(loadOrderViaCookies)
         })
         $(document).ready(function(){
             $("#logOutButton").click(deleteCookieAndLogout)
@@ -194,18 +171,17 @@
     </head>
 
     <body>
-        <h1>Add Previous Order (for current memberid)</h1>
+        <h1>Load Past Order into Cart</h1>
 
         <div id="inputFields">
             <p>Your current memberid is: <span></span></p>
             <label for="orderInput">Order ID: </label>
-            <input type="number" id="orderInput" value="1"/><br />
+            <input type="number" id="orderInput" value="0"/><br />
         </div>
 
 
 
-
-        <button type="button" id="placeOrderButton">Purchase previous order again</button>
+        <button type="button" id="loadOrderButton">Load Order (with the Order ID)</button>
         <button type="button" id="logOutButton">Log Out</button>
 
         <h3>links:</h3>

@@ -4,36 +4,88 @@
 <html> <!-- the root element of an HTML page -->
  
     <head> <!-- contains meta information about the HTML page -->
-        <title>Place an Order via Cookies</title>
+        <title>Delete Orders </title>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+        <link rel="stylesheet" href="https://bootswatch.com/4/superhero/bootstrap.min.css" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" />
+        <link rel="stylesheet" href="../styles/darkreader.css" />
+
         <script type="text/JavaScript">
-       /* async function placeOrderViaCookies() 
-        {
-            let response = await fetch("/orders",  {
-                    method: 'POST',
-                    headers: 
-                    {
-                        'Content-Type' : 'application/json;charset=utf-8'
-                    },
-                    body: JSON.stringify(
-                    {
-                        "size":$("#sizeInput").val(),
-                        "color":$("#colorInput").val(),
-                        "option1":$("#option1Input").val(),
-                        "option2":$("#option2Input").val(),
-                        "option3":$("#option3Input").val()
-                    })
-            })
-            if (response.ok) 
+
+        $(document).ready(async function(){
+
+            console.log("cookie is: ");
+            console.log(document.cookie);
+
+            console.log("cookie.authorized is: ");
+            console.log(document.cookie.authorized);
+
+            console.log("document.cookie === 'authorized=true'?????");
+            console.log("authorized=true" === document.cookie);
+
+
+            // if cookie not authorized.
+            if(document.cookie !== "authorized=true")
             {
-                window.location.href = "./orderDisplay.html";
-            } 
-            else 
-            {
-                alert("HTTP-Error: " + response.status);            
+                alertify.set('notifier','position', 'top-center');
+                alertify.error("You are not credentialed properly! Redirectering you in 2 seconds!!!")
+                await new Promise(r => setTimeout(r, 2000));
+
+                console.log("here");
+                // go back
+                window.location.href = "../index.html";
+            } else {
+                let loggedInUserString = sessionStorage.getItem("loggedInUser");
+                let loggedInUserObject = JSON.parse(loggedInUserString);
+                $('p').children('span').text(loggedInUserObject.memberid);
             }
-        }*/
+        })
+
+        async function deleteOrderViaCookies() 
+        {
+            console.log("deletOrderViaCookies()")
+            if(document.cookie === "authorized=true")
+            {
+
+                let loggedInUserString = sessionStorage.getItem("loggedInUser");
+                let loggedInUserObject = JSON.parse(loggedInUserString);
+                let memberidVal = loggedInUserObject.memberid;
+
+                let orderNo = $("#orderInput").val();
+
+                console.log("memberidVal is: " + memberidVal)
+                console.log("orderNo is: " + orderNo);
+
+                let response = await fetch("/pizza_orders",  {
+                        method: 'DELETE',
+                        headers: 
+                        {
+                            'Content-Type' : 'application/json;charset=utf-8'
+                        },
+                        body: JSON.stringify(
+                        {
+                            memberid: memberidVal,
+                            orderno: orderNo
+
+                        })
+                })
+                if (response.ok) 
+                {
+                    alertify.set('notifier','position', 'top-center');
+                    alertify.success("order deleted successfully!");
+                    //window.location.href = "./deleteOrders.html";
+                } 
+                else 
+                {
+                // alert("HTTP-Error: " + response.status);          
+                alertify.set('notifier','position', 'top-center');
+                alertify.error("You entered an orderid that doesn't exist.");  
+                }
+            }
+        }
         // deletes browser cookie, and logs out.
         async function deleteCookieAndLogout() {
             let response = await fetch("/auth",  {
@@ -41,6 +93,9 @@
             })
             if (response.ok) { // if HTTP-status is 200-299
                 // get the response body (the method explained below)
+                sessionStorage.removeItem("loggedInUser");
+                sessionStorage.removeItem("favorites");
+                sessionStorage.removeItem("currentOrder");
                 let json = await response.json()
                 console.log(json)
                 window.location.href = "../signin.html";
@@ -51,6 +106,42 @@
                 console.log(json)
             }
         }
+
+        async function deleteAllOrdersViaCookies() 
+        {
+            if(document.cookie === "authorized=true")
+            {
+
+                let loggedInUserString = sessionStorage.getItem("loggedInUser");
+                let loggedInUserObject = JSON.parse(loggedInUserString);
+                let memberidVal = loggedInUserObject.memberid;
+
+
+                let response = await fetch("/pizza_orders",  {
+                        method: 'DELETE',
+                        headers: 
+                        {
+                            'Content-Type' : 'application/json;charset=utf-8'
+                        },
+                        body: JSON.stringify(
+                        {
+                            memberid: memberidVal
+                        })
+                })
+                if (response.ok) 
+                {
+                    alertify.set('notifier','position', 'top-center');
+                    alertify.success("All Orders deleted successfully!");
+                    //window.location.href = "./deleteOrders.html";
+                } 
+                else 
+                {
+                // alert("HTTP-Error: " + response.status);          
+                alertify.set('notifier','position', 'top-center');
+                alertify.error("Sorry. An issue deleting all orders.");  
+                }
+         }
+        }
             
         /*$(document).ready(function(){
             var temp = document.cookie.split('=');
@@ -60,39 +151,55 @@
             }
         })*/
         $(document).ready(function(){
-            $("#placeOrderButton").click(placeOrderViaCookies)
+            $("#deleteOrderButton").click(deleteOrderViaCookies)
+        })
+        $(document).ready(function(){
+            $("#deleteAllOrdersButton").click(deleteAllOrdersViaCookies)
         })
         $(document).ready(function(){
             $("#logOutButton").click(deleteCookieAndLogout)
         })
+
+        let goToAddOrderPage = () => {
+            window.location.href = "./addOrder.html"  
+        };
+        let goToDeleteOrderPage = () => {
+            window.location.href = "./deleteOrders.html"  
+        };
+        let goToDisplayOrdersPage = () => {
+            window.location.href = "./displayOrders.html"  
+        };
+        let goToLoadOrderPage = () => {
+            window.location.href = "./loadOrder.html"  
+        };
+        let goToTAOTPage = () => {
+            window.location.href = "../index.html"  
+        };
 
         </script>
         
     </head>
 
     <body>
-        <h1>Place an Order via Cookies</h1>
+        <h1>Delete Orders (if no orderID, all orders will be deleted)</h1>
 
         <div id="inputFields">
-            <label for="sizeInput">Size: </label>
-            <input type="text" id="sizeInput" value="small"/><br />
-            <label for="colorInput">Color: </label>
-            <input type="text" id="colorInput" value="red"/><br />
-            <label for="option1Input">Option 1: </label>
-            <input type="text" id="option1Input" value="true"/><br />
-            <label for="option2Input">Option 2: </label>
-            <input type="text" id="option2Input" value="false"/><br />
-            <label for="option3Input">Option 3: </label>
-            <input type="text" id="option3Input" value="true"/><br />
+            <p>Your current memberid is: <span></span></p>
+            <label for="orderInput">Order ID: </label>
+            <input type="number" id="orderInput" value="0"/><br />
         </div>
 
 
-     
 
-
-
-        <button type="button" id="placeOrderButton">Place an Order via Cookies</button>
+        <button type="button" id="deleteOrderButton">Delete Order (with the Order ID)</button>
+        <button type="button" id="deleteAllOrdersButton">Delete All Orders</button>
         <button type="button" id="logOutButton">Log Out</button>
+
+        <h3>links:</h3>
+        <button type="button" id="goToAddOrderButton" onclick=goToAddOrderPage()>Go to Add Order Page</button>
+        <button type="button" id="goToDeleteOrderButton" onclick=goToDeleteOrderPage()>Go to Delete Orders Page</button>
+        <button type="button" id="goToDisplayOrderButton" onclick=goToDisplayOrdersPage()>Go to Display Orders Page</button>
+        <button type="button" id="goToTAOTButton" onclick=goToTAOTPage()>Go to The Aroma Of Tacoma Home Page</button>
         
     </body>
 

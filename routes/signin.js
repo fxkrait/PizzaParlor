@@ -70,6 +70,11 @@ router.get('/', (request, response, next) => {
         })
     }
 }, (request, response) => {
+    console.log("last");
+    console.log("email is: " + request.auth.email);
+
+    //console.log("email")
+    //console.log(request.decoded.email);
     const theQuery = "SELECT Password, Salt, MemberId FROM Members WHERE Email=$1"
     const values = [request.auth.email]
     pool.query(theQuery, values)
@@ -84,18 +89,24 @@ router.get('/', (request, response, next) => {
             //Retrieve our copy of the password
             let ourSaltedHash = result.rows[0].password 
 
+            console.log("ourSaltedHash: " + ourSaltedHash)
+
             //Combined their password with our salt, then hash
             let theirSaltedHash = getHash(request.auth.password, salt)
+
+            console.log("theirSaltedHash: " + theirSaltedHash)
+
 
             //Did our salted hash match their salted hash?
             if (ourSaltedHash === theirSaltedHash ) {
                 //credentials match. get a new JWT
-                let token = jwt.sign(
+                let token = jwt.sign( // payload (can include whatever you want in it)
                     {
                         "email": request.auth.email,
                         "memberid": result.rows[0].memberid
                     },
-                    config.secret,
+                    config.secret, // secret means it will be encoded using our JSON_WEB_TOKEN value (but anything in payload can be easily decrypted)
+                    // so don't store sensitive data in payload
                     { 
                         expiresIn: '14 days' // expires in 14 days
                     }
@@ -103,7 +114,7 @@ router.get('/', (request, response, next) => {
                 response.cookie('access_token', 'Bearer ' + token,
                     {
                         expires: new Date(Date.now() + 14 * 24 * 60 * 60000),
-                        httpOnly: true
+                        httpOnly: true // client side can't access cookie
                         
                     })
                 //use this cookie client side to know if a user is signed in    

@@ -24,6 +24,7 @@ console.log(request.cookies.access_token)
 }
 
 function helper(request, response, next, token) {
+  console.log("jwt helper");
   if (token) {
     console.log(token);
     if (token.startsWith('Bearer ')) {

@@ -42,10 +42,10 @@ app.use('/', require('./routes/demo_eps.js'))
 
 
 app.use('/demosql', require('./routes/demosql.js'))
-app.use('/auth', require('./routes/signin.js'))
+app.use('/auth',  require('./routes/signin.js'))
 
 
-app.use('/auth', require('./routes/register.js'))
+app.use('/auth',  require('./routes/register.js'))
 
 
 
@@ -53,6 +53,7 @@ app.use('/auth', require('./routes/register.js'))
 app.use('/orders', middleware.checkTokenCookies, require('./routes/demo_orders.js'))
 
 app.use('/pizza_orders', middleware.checkTokenCookies, require('./routes/pizza_orders.js'))
+app.use('/pizza_orders_add_previous', middleware.checkTokenCookies, require('./routes/pizza_orders_add_previous.js'))
 
 
 app.use('/cookie_orders', middleware.checkTokenCookies, require('./routes/demo_orders_cookies.js'))

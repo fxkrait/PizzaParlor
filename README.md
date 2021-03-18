@@ -1,3 +1,12 @@
+# Assigment 2 Portion of Readme:
+
+This features server side order storage, and user storage.
+login and registration is checked client side, before being sent to server side.
+in the /r directory is the files that are priviledege (add/remove/delete order).
+
+
+
+
 # Created for TCSS460 UWT Wi '20 Assignment 1
 
 https://the-aroma-of-tacoma.herokuapp.com/

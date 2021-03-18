@@ -143,6 +143,7 @@ router.get('/', (request, response, next) => {
         })
         .catch((err) => {
             //log the error
+            console.log("error signin")
             console.log(err.stack)
             response.status(400).send({
                 message: err.detail

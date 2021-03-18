@@ -77,6 +77,8 @@ router.get("/", (request, response) => {
  *
  * @apiHeader {String} authorization Valid JSON Web Token JWT 
  * 
+* @apiDescription Add the given passed in order to the DB for the user associated with the 
+ * JWT found in the HTTP Request Cookie.
  * @apiParamExample {json} Request-Query-Example:
  *     https://uwnetid-tcss460-w21.herokuapp.com/orders
  * 

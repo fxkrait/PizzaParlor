@@ -1047,6 +1047,7 @@ define({ "api": [
         ]
       }
     },
+    "description": "<p>Add the given passed in order to the DB for the user associated with the JWT found in the HTTP Request Cookie.</p>",
     "parameter": {
       "examples": [
         {
@@ -1322,6 +1323,7 @@ define({ "api": [
         ]
       }
     },
+    "description": "<p>Add the given previous order (using given order id) to the DB for the user associated with the JWT found in the HTTP Request Cookie.</p>",
     "parameter": {
       "examples": [
         {

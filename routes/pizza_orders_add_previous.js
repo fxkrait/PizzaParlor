@@ -20,6 +20,9 @@ const isProvided = require('../utilities/exports').helpers.isProvided
  *
  * @apiHeader {String} authorization Valid JSON Web Token JWT 
  * 
+ * @apiDescription Add the given previous order (using given order id) to the DB for the user associated with the 
+ * JWT found in the HTTP Request Cookie.
+ * 
  * @apiParamExample {json} Request-Query-Example:
  *     https://uwnetid-tcss460-w21.herokuapp.com/orders
  * 

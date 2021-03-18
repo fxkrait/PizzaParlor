@@ -100,6 +100,7 @@ router.get('/', (request, response, next) => {
             //Did our salted hash match their salted hash?
             if (ourSaltedHash === theirSaltedHash ) {
                 //credentials match. get a new JWT
+                console.log("credentials match")
                 let token = jwt.sign( // payload (can include whatever you want in it)
                     {
                         "email": request.auth.email,
@@ -134,6 +135,7 @@ router.get('/', (request, response, next) => {
                 })
             } else {
                 //credentials dod not match
+                console.log("credentials did not match")
                 response.status(400).send({
                     message: 'Credentials did not match' 
                 })

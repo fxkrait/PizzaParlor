@@ -85,9 +85,7 @@
                     sessionStorage.removeItem("currentOrder");
                     let json = await response.json()
                     console.log(json)
-                    window.location.href = "../signin.html";
-
-
+                    window.location.href = "./displayOrders.html";
                 } else {
                     alert("HTTP-Error: " + response.status)
                     console.log(response.status)

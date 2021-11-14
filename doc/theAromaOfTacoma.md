@@ -110,3 +110,18 @@ JSON Objects used:
 ### Add Pizza (place order) [../routes/pizza_orders.js#L95](../routes/pizza_orders.js#L95)
 
 ### Delete Pizza, or all pizzas (remove order) [../routes/pizza_orders.js#L196](../routes/pizza_orders.js#L196)
+
+## Cart (order pizzas):
+
+- Parses `currentOrder`, and displays it.
+- `editPizza(i)`
+- - stores pizza in `editPizza`, and it's index in `editIndex`, redirects you to order.html
+- `buildPizza(i, pizza)`, constructs the cards of pizzas
+- `purchaseOrder()`
+  - If logged in and have a current order. Store in DB of orders, if OK, clear current order and clear out cart.
+- `deletePizza()`
+  - Delete pizza from current order list.
+  - Remove it from HTML/CSS.
+  - Re-calculate total price of order
+- `updateTotalPrice()`
+  - Traverses current order, gets price of each, and sums them up.

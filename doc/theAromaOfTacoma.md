@@ -52,7 +52,7 @@ OrderDetails (JSON)
 - let pizza = {name, quantity, size, crust, sauce, cheese, toppingsMeatList, toppingsNonMeatsList};
 - Return the pizza object
 
-# Order.js
+# Order.js (Create and add your pizza page)
 
 JSON Objects used:
 
@@ -75,7 +75,7 @@ JSON Objects used:
 
 - Resets all clicked button, radios buttons, checked properties state, and then updatePizza(), updateRadio() and updateCheckBoxes() to re-load default state.
 
-## Registration
+## Registration (Partially provided)
 
 ### FrontEnd: [../web/scripts/loginRegister.js#L108](../web/scripts/loginRegister.js#L108)
 
@@ -90,7 +90,7 @@ JSON Objects used:
   - If email already exists (PK), then return error.
   - If user not found, return 404,ro if credenitals don't match, return 400 error.
 
-## Login
+## Login (Partially provided)
 
 ### FrontEnd: [../web/scripts/loginRegister.js#L108](../web/scripts/loginRegister.js#L108)
 

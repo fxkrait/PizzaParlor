@@ -99,14 +99,14 @@ JSON Objects used:
   - If successful, store user in `loggedInUserObject` session storage, show "Login Successfull" pop up
   - Else, "Login unsuccessful popup"
 
-### BackEnd (GET API): [../web/routes/signin.js#L47](../web/routes/signin.js#L47)
+### BackEnd (GET API): [../routes/signin.js#L47](../routes/signin.js#L47)
 
 - Checks credetials, returns authentication cookie and JWT.
 
 ## Pizza Ordering:
 
-### Get Pizza (Returns all ordered pizzas) [../web/routes/pizza_orders.js#L30](../web/routes/pizza_orders.js#L30)
+### Get Pizza (Returns all ordered pizzas) [../routes/pizza_orders.js#L30](../routes/pizza_orders.js#L30)
 
-### Add Pizza (place order) [../web/routes/pizza_orders.js#L95](../web/routes/pizza_orders.js#L95)
+### Add Pizza (place order) [../routes/pizza_orders.js#L95](../routes/pizza_orders.js#L95)
 
-### Delete Pizza, or all pizzas (remove order) [../web/routes/pizza_orders.js#L196](../web/routes/pizza_orders.js#L196)
+### Delete Pizza, or all pizzas (remove order) [../routes/pizza_orders.js#L196](../routes/pizza_orders.js#L196)
